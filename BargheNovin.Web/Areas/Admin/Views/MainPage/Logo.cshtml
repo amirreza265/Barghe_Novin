@@ -1,0 +1,90 @@
+﻿@model UploadLogosViewModel
+@{
+    ViewData["pageindex"] = 1;
+    ViewData["Title"] = "لوگو ها";
+}
+
+
+@section ContentHeader{
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">ویرایش لوگو ها</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a asp-area="admin">خانه</a></li>
+                        <li class="breadcrumb-item active">لوگوها</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+}
+
+<section class="content">
+    <div class="card card-primary col-md-8">
+        <div class="card-header">
+            <h3 class="card-title">فرم ارسال لوگو</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form role="form" enctype="multipart/form-data" method="post">
+            <div class="card-body">
+                <div class="form-group">
+                    <div>
+                        <img class="img-bordered img-thumbnail" id="mlImage" src="~/main/img/logo.png" style="background-color:gray"/>
+                    </div>
+                    <label for="exampleInputFile">لوگو اصلی</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input class="custom-file-input" asp-for="MainLogo"
+                                   onchange="document.getElementById('mlImage').src = window.URL.createObjectURL(this.files[0])">
+                            <label class="custom-file-label" for="MainLogo">انتخاب فایل</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <img class="img-bordered img-thumbnail" id="flImage" src="~/main/img/footer-logo.png" style="background-color:gray" />
+                    </div>
+                    <label for="exampleInputFile">لوگو پایین صفحه</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input class="custom-file-input" asp-for="FooterLogo"
+                                   onchange="document.getElementById('flImage').src = window.URL.createObjectURL(this.files[0])">
+                            <label class="custom-file-label" for="MainLogo">انتخاب فایل</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div>
+                        <img class="img-bordered img-thumbnail" id="slImage" src="~/main/img/small-logo.png" style="background-color:gray" />
+                    </div>
+                    <label for="exampleInputFile">لوگو کوچک</label>
+                    <div class="input-group">
+                        <div class="custom-file">
+                            <input class="custom-file-input" asp-for="SmallLogo"
+                                   onchange="document.getElementById('slImage').src = window.URL.createObjectURL(this.files[0])">
+                            <label class="custom-file-label" for="MainLogo">انتخاب فایل</label>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" asp-validation-summary="All">
+
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">ارسال</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

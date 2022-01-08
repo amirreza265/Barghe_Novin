@@ -1,0 +1,73 @@
+﻿            <!-- Sidebar -->
+<div class="sidebar" style="direction: ltr">
+    <div style="direction: rtl">
+        <!-- Sidebar user panel (optional) -->
+        <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+            <div class="image">
+                <img src="https://www.gravatar.com/avatar/52f0fbcbedee04a121cba8dad1174462?s=200&d=mm&r=g" class="img-circle elevation-2" alt="User Image">
+            </div>
+            <div class="info">
+                <a href="#" class="d-block">حسام موسوی</a>
+            </div>
+        </div>
+
+        <!-- Sidebar Menu -->
+        <nav class="mt-2">
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+                <!-- Add icons to the links using the .nav-icon class
+                with font-awesome or any other icon font library -->
+                <li class="nav-item  @(((int)ViewData["pageindex"] == 0) ? "menu-open" : "")">
+                    <a asp-area="admin"
+                       asp-controller="home"
+                       asp-action="index"
+                       class="nav-link">
+                        <i class="nav-icon fa fa-dashboard"></i>
+                        <p>
+                            داشبورد
+                        </p>
+                    </a>
+                </li>
+
+                @{
+                    bool active = (new int[] { 1, 2, 3 }.Contains((int)ViewData["pageindex"]));
+                 }
+                <li class="nav-item has-treeview @(active?"menu-open":"")">
+                    <a href="#" class="nav-link  @(active?"active":"")">
+                        <i class="nav-icon fa fa-map"></i>
+                        <p>
+                            صفحه ها
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="admin"
+                               asp-controller="mainPage"
+                               asp-action="logo" class="nav-link  @(((int)ViewData["pageindex"] == 1)?"active":"")">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>لوگوها</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin"
+                               asp-controller="mainPage"
+                               asp-action="services"
+                               class="nav-link  @(((int)ViewData["pageindex"] == 2)?"active":"")">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>خدمات</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="./index3.html" class="nav-link @(((int)ViewData["pageindex"] == 3)?"active":"")">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>نمونه کار</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+        </nav>
+        <!-- /.sidebar-menu -->
+    </div>
+</div>
+<!-- /.sidebar -->

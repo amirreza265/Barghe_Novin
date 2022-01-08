@@ -1,0 +1,112 @@
+﻿
+@{
+    ViewData["Title"] = "تماس با ما";
+}
+
+@model MessageViewModel
+
+<section class="business-talking">
+    <!--business-talking-start-->
+    <div class="container">
+        <h2>
+            تماس با ما
+        </h2>
+    </div>
+</section><!--business-talking-end-->
+
+
+<div class="container">
+    <section class="main-section contact" id="contact">
+
+        <div class="row">
+            <div class="col-lg-6 col-sm-7 wow fadeInRight">
+                <div class="contact-info-box address clearfix">
+                    <h3><i class=" icon-map-marker"></i>&nbsp;  آدرس : </h3>
+                    <span>تهران - شهریار - اندیشه</span>
+                </div>
+                <div class="contact-info-box phone clearfix">
+                    <h3><i class="fa-phone"></i>&nbsp;  تلفن :</h3>
+                    <span>09127974684</span>
+                </div>
+                <div class="contact-info-box email clearfix">
+                    <h3><i class="fa-pencil"></i>&nbsp; ایمیل:</h3>
+                    <span>moslemfarhadi64@gmail.com</span>
+                </div>
+                <div class="contact-info-box hours clearfix">
+                    <h3>
+                        <i class="fa-clock-o"></i>&nbsp;
+                        ساعات کاری:
+                    </h3>
+                    <span>
+                        <strong>
+                            شنبه - پنجشنبه:
+                        </strong>
+                        8 صبح تا 6 شب
+                    </span>
+                </div>
+                <ul class="social-link">
+                    <li class="twitter"><a href="#"><i class="fa-twitter"></i></a></li>
+                    <li class="facebook"><a href="#"><i class="fa-facebook"></i></a></li>
+                    <li class="pinterest"><a href="#"><i class="fa-pinterest"></i></a></li>
+                    <li class="gplus"><a href="#"><i class="fa-google-plus"></i></a></li>
+                    <li class="dribbble"><a href="#"><i class="fa-dribbble"></i></a></li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-sm-5 wow fadeInUp delay-05s">
+                <form asp-controller="home"
+                      asp-action="contactus"
+                      data-ajax="true"
+                      data-ajax-method="post"
+                      data-ajax-mode="replace"
+                      data-ajax-update="#"
+                      data-ajax-success="success">
+
+                    <div class="form">
+                        <input class="input-text" asp-for="Name" id="message_Name" name="message.Name" placeholder="نام *" />
+                        <input class="input-text" asp-for="Email" id="message_Email" name="message.Email" placeholder="ایمیل *" />
+                        <textarea class="input-text text-area" asp-for="Message" id="message_Message" name="message.Message" rows="10" placeholder="پیام *"></textarea>
+
+                        <div asp-validation-summary="All" id="validation-summary">
+
+                        </div>
+
+                        <input class="input-btn" type="submit" value="ارسال پیام">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</div>
+
+<template id="my-template">
+    <swal-title>
+        پیام شما با موفقیت ارسال شد 
+    </swal-title>
+    <swal-icon type="success" color="green"></swal-icon>
+    <swal-button type="confirm">
+        تشکر
+    </swal-button>
+    <swal-param name="allowEscapeKey" value="false" />
+    <swal-param name="customClass"
+                value='{ "popup": "my-popup" }' />
+</template>
+
+
+@section scripts{
+    <script src="~/myjs/jquery.unobtrusive-ajax.min.js"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        function success() {
+            $("#message_Name").val("")
+            $("#message_Email").val("")
+            $("#message_Message").val("")
+            $("#validation-summary").empty();
+
+            Swal.fire({
+                template: '#my-template'
+            })
+        }
+    </script>
+}
+
