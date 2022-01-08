@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BargheNovin.Core.Directories;
+using BargheNovin.Core.DTOs.Content;
 using BargheNovin.Core.Services.Interface;
 using BargheNovin.Web.Areas.Admin.Models;
 using BargheNovin.Web.Areas.Admin.Models.PagiesContent;
@@ -68,7 +69,55 @@ namespace BargheNovin.Web.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return View(model);
 
+            List<ContentDto> contents = new List<ContentDto>()
+            {
+                new ContentDto()
+                {
+                    ContentName = nameof(model.ServicesDescription),
+                    Content = model.ServicesDescription
+                },new ContentDto()
+                {
+                    ContentName = nameof(model.SText1),
+                    Content = model.SText1
+                },new ContentDto()
+                {
+                    ContentName = nameof(model.SText2),
+                    Content = model.SText2
+                },new ContentDto()
+                {
+                    ContentName = nameof(model.SText3),
+                    Content = model.SText3
+                },new ContentDto()
+                {
+                    ContentName = nameof(model.SText4),
+                    Content = model.SText4
+                },new ContentDto()
+                {
+                    ContentName = nameof(model.STextTitle1),
+                    Content = model.STextTitle1
+                },new ContentDto()
+                {
+                    ContentName = nameof(model.STextTitle2),
+                    Content = model.STextTitle2
+                },new ContentDto()
+                {
+                    ContentName = nameof(model.STextTitle3),
+                    Content = model.STextTitle3
+                },new ContentDto()
+                {
+                    ContentName = nameof(model.STextTitle4),
+                    Content = model.STextTitle4
+                }
+            };
+            List<ImageContentDto> images = new List<ImageContentDto>() { 
+                new ImageContentDto()
+                {
+                    ImageFile = model.ImageUpload,
+                    ImgKey = model.ImageKey
+                }
+            };
 
+            _pageService.UpdatePageContents(model.PageName, contents, images);
 
             return RedirectToAction("Services");
         }

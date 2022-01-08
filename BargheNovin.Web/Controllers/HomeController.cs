@@ -1,4 +1,7 @@
-﻿using BargheNovin.Web.Models;
+﻿using AutoMapper;
+using BargheNovin.Core.Services.Interface;
+using BargheNovin.Web.Areas.Admin.Models.PagiesContent;
+using BargheNovin.Web.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -12,14 +15,19 @@ namespace BargheNovin.Web.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IPageService _pageService;
+        private readonly IMapper _mapper;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IPageService pageService, IMapper mapper)
         {
             _logger = logger;
+            _pageService = pageService;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
         {
+            ViewData["servicesPage"] = _mapper.Map<ServicesPageContentViewModel>(_pageService.GetPageContentBy("Services"));
             return View();
         }
 

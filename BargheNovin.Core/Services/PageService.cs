@@ -127,10 +127,39 @@ namespace BargheNovin.Core.Services
             _context.SaveChanges();
         }
 
-        public void UpdatePageContents(PageContent pageContent, List<ContentDto> contents, List<ImageContentDto> images)
+        public void UpdatePageContents(string pageName, List<ContentDto> contents, List<ImageContentDto> images, bool save = true)
         {
+            var pageContent = GetPageContentBy(pageName);
             //ToDo
-            throw new NotImplementedException();
+            foreach (var content in pageContent.Contents)
+            {
+                var conDto = contents.SingleOrDefault(c => content.ContentName.Name == c.ContentName);
+
+                if (conDto == null)
+                    continue;
+
+                content.ContentHtml = conDto.Content;
+            }
+
+            foreach (var image in pageContent.Images)
+            {
+                var imgFile = images.SingleOrDefault(i => i.ImgKey == image.ImageKey).ImageFile;
+
+                if (imgFile == null)
+                    continue;
+
+                image.ImageName = UploadFile.ReplaceNew(imgFile,
+                    image.ImageName, null,
+                    "wwwroot","main","img");
+
+                ImageResize.Resize(image.ImageName,650,390,
+                    "wwwroot", "main", "img");
+            }
+
+            _context.PageContents.Update(pageContent);
+
+            if (save)
+                _context.SaveChanges();
         }
     }
 }

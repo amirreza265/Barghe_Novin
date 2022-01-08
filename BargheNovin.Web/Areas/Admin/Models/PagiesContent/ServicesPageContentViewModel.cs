@@ -15,9 +15,10 @@ namespace BargheNovin.Web.Areas.Admin.Models.PagiesContent
         
         [Required(ErrorMessage ="لطفا {0} را وارد کنید")]
         [Display(Name =" توضیحات اولیه")]
-        public string Description { get; set; }
+        public string ServicesDescription { get; set; }
 
         public string ImageName { get; set; }
+        public string ImageKey { get; set; }
 
         [Display(Name = "عکس نمایشی")]
         [FileMaxSize(Size = 3 * 1024 * 1024, ErrorMessage = "حجم فایل {0} نمی تواند بیشتر از {1} باشد")]
@@ -27,33 +28,33 @@ namespace BargheNovin.Web.Areas.Admin.Models.PagiesContent
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(300, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         [Display(Name = "عنوان 1")]
-        public string TextTitle1 { get; set; }
+        public string STextTitle1 { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [Display(Name = "توضیحات 1")]
-        public string Text1 { get; set; }
+        public string SText1 { get; set; }
 
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(300, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         [Display(Name = "عنوان 2")]
-        public string TextTitle2 { get; set; }
+        public string STextTitle2 { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [Display(Name = "توضیحات 2")]
-        public string Text2 { get; set; }
+        public string SText2 { get; set; }
 
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(300, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         [Display(Name = "عنوان 3")]
-        public string TextTitle3 { get; set; }
+        public string STextTitle3 { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [Display(Name = "توضیحات 3")]
-        public string Text3 { get; set; }
+        public string SText3 { get; set; }
 
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [MaxLength(300, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]
         [Display(Name = "عنوان 4")]
-        public string TextTitle4 { get; set; }
+        public string STextTitle4 { get; set; }
         [Required(ErrorMessage = "لطفا {0} را وارد کنید")]
         [Display(Name = "توضیحات 4")]
-        public string Text4 { get; set; }
+        public string SText4 { get; set; }
     }
 }
