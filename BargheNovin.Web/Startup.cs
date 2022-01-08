@@ -1,6 +1,10 @@
+using BargheNovin.Core.Services;
+using BargheNovin.Core.Services.Interface;
+using BargheNovin.DataLayer.DataBaseContext;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -24,6 +28,13 @@ namespace BargheNovin.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddDbContext<BargheNovinDBContext>(option => {
+                option.UseSqlServer(Configuration.GetConnectionString("BargheNovin"));
+            });
+
+            #region Ioc
+            services.AddScoped<ILogoService, LogoService>();
+            #endregion
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

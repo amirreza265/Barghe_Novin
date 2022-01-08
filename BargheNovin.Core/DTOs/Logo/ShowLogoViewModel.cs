@@ -6,7 +6,10 @@ using System.Threading.Tasks;
 
 namespace BargheNovin.Core.DTOs.Logo
 {
-    class ShowLogoViewModel
+    public class ShowLogoViewModel
     {
+        public string MainLogo { get; set; }
+        public string FooterLogo { get; set; }
+        public string SmallLogo { get; set; }
     }
 }

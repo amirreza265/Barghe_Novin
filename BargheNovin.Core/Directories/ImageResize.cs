@@ -12,7 +12,7 @@ namespace BargheNovin.Core.Directories
 {
     public static class ImageResize
     {
-        public static void MakeSquerLogo(string imageName, int imageSize = 240, params string[] paths)
+        public static void MakeSquerImage(string imageName, int imageSize = 240, params string[] paths)
         {
             var root = Path.Combine(paths);
             var imgPath = Path.Combine(Directory.GetCurrentDirectory(),
@@ -21,6 +21,11 @@ namespace BargheNovin.Core.Directories
 
             using (Image<Rgba32> image = (Image<Rgba32>)Image.Load(imgPath))
             {
+                if (imageSize <= 0)
+                {
+                    imageSize = image.Height;
+                }
+
                 image.Mutate(x => x
                      .Resize(imageSize, (int)(imageSize * ((float)(image.Height / image.Width))))
                      .Crop(
