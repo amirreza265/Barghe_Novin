@@ -23,6 +23,7 @@ namespace BargheNovin.DataLayer.DataBaseContext
         public DbSet<Content> Contents { get; set; }
         public DbSet<PageContent> PageContents { get; set; }
         public DbSet<ContentName> ContentNames { get; set; }
+        public DbSet<ImageContent> ImageContents { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -33,6 +34,10 @@ namespace BargheNovin.DataLayer.DataBaseContext
 
             modelBuilder.Entity<PageContent>()
                 .HasIndex(c => c.PageName)
+                .IsUnique();
+
+            modelBuilder.Entity<ImageContent>()
+                .HasIndex(img => img.ImageKey)
                 .IsUnique();
 
             base.OnModelCreating(modelBuilder);

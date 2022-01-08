@@ -19,10 +19,15 @@ namespace BargheNovin.Core.Services
 {
     public class LogoService : ILogoService
     {
-        private readonly dynamic _config;
+        private dynamic _config;
         private JsonSerializerSettings jsonSettings;
 
         public LogoService()
+        {
+            Init();
+        }
+
+        private void Init()
         {
             var appSettingsPath = Path.Combine(System.IO.Directory.GetCurrentDirectory(), "appsettings.json");
             var json = File.ReadAllText(appSettingsPath);

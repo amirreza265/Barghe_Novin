@@ -17,5 +17,6 @@ namespace BargheNovin.DataLayer.Entities.PageContent
 
 
         public List<Content> Contents { get; set; }
+        public List<ImageContent> Images { get; set; }
     }
 }
