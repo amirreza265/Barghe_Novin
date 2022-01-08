@@ -1,4 +1,5 @@
 ﻿using BargheNovin.DataLayer.Entities;
+using BargheNovin.DataLayer.Entities.PageContent;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -17,6 +18,25 @@ namespace BargheNovin.DataLayer.DataBaseContext
 
         #region Logo
         #endregion
+
+        #region Content
+        public DbSet<Content> Contents { get; set; }
+        public DbSet<PageContent> PageContents { get; set; }
+        public DbSet<ContentName> ContentNames { get; set; }
+        #endregion
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ContentName>()
+                .HasIndex(c => c.Name)
+                .IsUnique();
+
+            modelBuilder.Entity<PageContent>()
+                .HasIndex(c => c.PageName)
+                .IsUnique();
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
 
 }

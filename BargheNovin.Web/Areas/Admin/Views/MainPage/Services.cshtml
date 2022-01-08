@@ -24,4 +24,73 @@
 
 }
 
+<section class="content">
+    <div class="card card-primary col-md-12">
+        <div class="card-header">
+            <h3 class="card-title">فرم خدمات</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form role="form" enctype="multipart/form-data" method="post">
+            <div class="card-body">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <label>خدمات</label>
+                        <textarea class="form-control" rows="3" placeholder="وارد کردن اطلاعات ..."></textarea>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <div>
+                                <img class="img-bordered img-thumbnail" id="mlImage" src="~/main/img/macbook-pro.png" style="background-color:gray" />
+                            </div>
+                            <label for="exampleInputFile">تصوبر نمایشی</label>
+                            <div class="input-group">
+                                <div class="custom-file">
+                                    <input class="custom-file-input" type="file"
+                                           onchange="document.getElementById('mlImage').src = window.URL.createObjectURL(this.files[0])">
+                                    <label class="custom-file-label" for="MainLogo">انتخاب فایل</label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label>عنوان 1</label>
+                            <input type="text" class="form-control" placeholder="موضوع">
+                            <textarea class="form-control" rows="2" placeholder="توضیح مختصر"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>عنوان 2  </label>
+                            <input type="text" class="form-control" placeholder="موضوع">
+                            <textarea class="form-control" rows="2" placeholder="توضیح مختصر"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>عنوان 3 </label>
+                            <input type="text" class="form-control" placeholder="موضوع">
+                            <textarea class="form-control" rows="2" placeholder="توضیح مختصر"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label>عنوان 4 </label>
+                            <input type="text" class="form-control" placeholder="موضوع">
+                            <textarea class="form-control" rows="2" placeholder="توضیح مختصر"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group" asp-validation-summary="All">
 
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">ارسال</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+}
