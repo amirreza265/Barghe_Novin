@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BargheNovin.Core.DTOs.Content;
 using BargheNovin.DataLayer.Entities.PageContent;
 using BargheNovin.Web.Areas.Admin.Models.PagiesContent;
 using System;
@@ -43,6 +44,15 @@ namespace BargheNovin.Web.Mapping
 
                 .ForMember(des => des.SText4, opt => opt.MapFrom(src =>
                     src.Contents.FirstOrDefault(content => content.ContentName.Name == "SText4").ContentHtml));
+
+
+            CreateMap<PageContent, PageViewModel>();
+            CreateMap<Content, ContentDto>()
+                .ForMember(cond => cond.Content, option => option.MapFrom(con => con.ContentHtml))
+                .ForMember(cond => cond.ContentName, option => option.MapFrom(con => con.ContentName.Name))
+                .ReverseMap();
+
+            CreateMap<ImageContent, ShowImageViewModel>();
         }
     }
 }

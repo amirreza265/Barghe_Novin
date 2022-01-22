@@ -19,6 +19,8 @@ namespace BargheNovin.Core.Services.Interface
 
         PageContent GetPageContentBy(string pageName);
 
+        List<PageContent> GetPageContents(List<string> names = null);
+
         public ImageContent AddImageContent(string pagename, string imgKey, IFormFile image, bool save = true);
         void UpdateImageContent(string imgKey, IFormFile image);
 

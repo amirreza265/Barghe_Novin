@@ -94,6 +94,21 @@ namespace BargheNovin.Core.Services
                 .SingleOrDefault(p => p.PageName == pageName);
         }
 
+        public List<PageContent> GetPageContents(List<string> names = null)
+        {
+            IQueryable<PageContent> pages = _context.PageContents
+                .Include(p => p.Contents)
+                .Include(p => p.Images)
+                .AsSplitQuery();
+
+            if(names?.Count > 0)
+            {
+                pages = pages.Where(p => names.Contains(p.PageName));
+            }
+
+            return pages.ToList();
+        }
+
         public int GetPageIdBy(string PageName)
         {
             return _context.PageContents
