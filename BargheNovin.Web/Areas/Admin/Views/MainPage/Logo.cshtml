@@ -1,7 +1,7 @@
 ﻿@model UploadLogosViewModel
 @inject BargheNovin.Core.Services.Interface.ILogoService _logoService
 @{
-    ViewData["pageindex"] = 1;
+    ViewData["pageindex"] = -1;
     ViewData["Title"] = "لوگو ها";
     var logos = _logoService.GetLogo();
 }

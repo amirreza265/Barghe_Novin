@@ -8,6 +8,8 @@ namespace BargheNovin.Core.DTOs.Content
 {
     public class PageViewModel
     {
+        public int PageId { get; set; }
+        public string DisplayName { get; set; }
         public string PageName { get; set; }
         public List<ContentDto> Contents { get; set; }
         public List<ShowImageViewModel> ImageContents { get; set; }

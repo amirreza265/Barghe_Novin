@@ -17,6 +17,9 @@ namespace BargheNovin.DataLayer.Entities.PageContent
         public int PageId { get; set; }
         public string ContentHtml { get; set; }
 
+        [MaxLength(400)]
+        public string? ContentTitle { get; set; }
+
         public ContentName ContentName { get; set; }
 
         [ForeignKey("PageId")]

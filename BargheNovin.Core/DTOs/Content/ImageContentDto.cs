@@ -18,5 +18,7 @@ namespace BargheNovin.Core.DTOs.Content
         [FileMaxSize(Size = 3 * 1024 * 1024, ErrorMessage = "حجم فایل {0} نمی تواند بیشتر از {1} باشد")]
         [AllowedExtensions(extensions: new string[] { ".jpg", ".png", ".jpeg" }, ErrorMessage = "پسوند تصویر باید {1} باشد")]
         public IFormFile ImageFile { get; set; }
+
+        public string? ContentTitle { get; set; }
     }
 }

@@ -21,6 +21,13 @@ namespace BargheNovin.Core.Services.Interface
 
         List<PageContent> GetPageContents(List<string> names = null);
 
+        /// <summary>
+        /// list of pages names
+        /// </summary>
+        /// <param name="filterName">filter name</param>
+        /// <returns>name, displayname, id</returns>
+        List<Tuple<string, string, int>> GetPageNames(string filterName = "");
+
         public ImageContent AddImageContent(string pagename, string imgKey, IFormFile image, bool save = true);
         void UpdateImageContent(string imgKey, IFormFile image);
 

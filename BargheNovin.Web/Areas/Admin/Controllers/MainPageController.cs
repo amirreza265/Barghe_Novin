@@ -123,6 +123,7 @@ namespace BargheNovin.Web.Areas.Admin.Controllers
         }
 
 
+        [Route("/admin/edit-page/{pageName?}")]
         public IActionResult EditPage(string pageName = "Services")
         {
             var page = _pageService.GetPageContentBy(pageName);

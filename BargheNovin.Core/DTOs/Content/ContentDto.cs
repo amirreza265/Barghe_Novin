@@ -10,5 +10,6 @@ namespace BargheNovin.Core.DTOs.Content
     {
         public string ContentName { get; set; }
         public string Content { get; set; }
+        public string? ContentTitle { get; set; }
     }
 }

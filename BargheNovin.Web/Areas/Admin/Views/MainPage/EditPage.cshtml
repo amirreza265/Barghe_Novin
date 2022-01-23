@@ -1,7 +1,7 @@
 ﻿@model InputPageContentViewModel
 @{
-    ViewData["pageindex"] = 3;
-    ViewData["Title"] = "صفحه" + Model.PageName;
+    ViewData["pageindex"] = Model.PageId;
+    ViewData["Title"] = "صفحه " + Model.DisplayName;
 }
 
 
@@ -10,12 +10,12 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0 text-dark">ویرایش بخش خدمات</h1>
+                    <h1 class="m-0 text-dark">ویرایش بخش @Model.DisplayName</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-left">
                         <li class="breadcrumb-item"><a href="/admin">خانه</a></li>
-                        <li class="breadcrumb-item active">خدمات</li>
+                        <li class="breadcrumb-item active"> @Model.DisplayName</li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -27,7 +27,7 @@
 <section class="content">
     <div class="card card-primary col-md-12">
         <div class="card-header">
-            <h3 class="card-title">فرم خدمات</h3>
+            <h3 class="card-title">فرم @Model.DisplayName</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
@@ -50,7 +50,7 @@
                                 <div>
                                     <img class="img-bordered img-thumbnail" id="@(image.ImgKey+image.ImgKey)" src="~/main/img/@image.ImageName" style="background-color:gray" />
                                 </div>
-                                <label for="exampleInputFile">تصاوبر نمایشی</label>
+                                <label for="exampleInputFile">@image.ContentTitle</label>
                                 <div class="input-group">
                                     <div class="custom-file">
                                         <input asp-for="Images[i].ImgKey" type="hidden"/>
@@ -68,7 +68,7 @@
                         {
                             var content = Model.Contents[i];
                             <div class="form-group">
-                                <label>محتوا</label>
+                                <label>@content.ContentTitle</label>
                                 <input type="hidden" asp-for="Contents[i].ContentName" />
                                 <textarea asp-for="Contents[i].Content" class="form-control" rows="2" placeholder="توضیح مختصر">@content.Content</textarea>
                             </div>

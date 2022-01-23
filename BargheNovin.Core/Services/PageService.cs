@@ -98,6 +98,7 @@ namespace BargheNovin.Core.Services
         {
             IQueryable<PageContent> pages = _context.PageContents
                 .Include(p => p.Contents)
+                .ThenInclude(con => con.ContentName)
                 .Include(p => p.Images)
                 .AsSplitQuery();
 
@@ -114,6 +115,23 @@ namespace BargheNovin.Core.Services
             return _context.PageContents
                 .SingleOrDefault(p => p.PageName == PageName)
                 .PageId;
+        }
+
+        public List<Tuple<string, string, int>> GetPageNames(string filterName = "")
+        {
+            IQueryable<PageContent> pages = _context.PageContents;
+
+            if (filterName != "" || filterName != null)
+            {
+                pages = pages.Where(p => 
+                EF.Functions.Like(p.DisplayName, $"%{filterName}%") || 
+                EF.Functions.Like(p.PageName, $"%{filterName}%"));
+            }
+
+            return pages
+                .Select(p => 
+                new Tuple<string, string, int>(p.PageName, p.DisplayName, p.PageId))
+                .ToList();
         }
 
         public void UpdateContent(string contentName, string newContent)
@@ -167,8 +185,8 @@ namespace BargheNovin.Core.Services
                     image.ImageName, null,
                     "wwwroot","main","img");
 
-                ImageResize.Resize(image.ImageName,650,390,
-                    "wwwroot", "main", "img");
+                //ImageResize.Resize(image.ImageName,650,390,
+                //    "wwwroot", "main", "img");
             }
 
             _context.PageContents.Update(pageContent);

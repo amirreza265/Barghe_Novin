@@ -15,6 +15,9 @@ namespace BargheNovin.DataLayer.Entities.PageContent
         [MaxLength(200)]
         public string PageName { get; set; }
 
+        [Required]
+        [MaxLength(300)]
+        public string DisplayName { get; set; }
 
         public List<Content> Contents { get; set; }
         public List<ImageContent> Images { get; set; }

@@ -35,6 +35,10 @@ namespace BargheNovin.DataLayer.DataBaseContext
             modelBuilder.Entity<PageContent>()
                 .HasIndex(c => c.PageName)
                 .IsUnique();
+            
+            modelBuilder.Entity<PageContent>()
+                .HasIndex(c => c.DisplayName)
+                .IsUnique();
 
             modelBuilder.Entity<ImageContent>()
                 .HasIndex(img => img.ImageKey)

@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BargheNovin.Core.DTOs.Content;
 using BargheNovin.Core.Services.Interface;
 using BargheNovin.Web.Areas.Admin.Models.PagiesContent;
 using BargheNovin.Web.Models;
@@ -27,7 +28,9 @@ namespace BargheNovin.Web.Controllers
 
         public IActionResult Index()
         {
-            ViewData["servicesPage"] = _mapper.Map<ServicesPageContentViewModel>(_pageService.GetPageContentBy("Services"));
+            var pages = _pageService.GetPageContents(new List<string>() { "Services", "for-work", "work-samples" });
+            var pagesVM = _mapper.Map<List<PageViewModel>>(pages);
+            ViewData["Pages"] = pagesVM;
             return View();
         }
 

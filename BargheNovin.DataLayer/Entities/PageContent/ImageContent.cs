@@ -20,6 +20,9 @@ namespace BargheNovin.DataLayer.Entities.PageContent
         [MaxLength(150)]
         public string ImageName { get; set; }
 
+        [MaxLength(400)]
+        public string? ContentTitle { get; set; }
+
         [Required]
         [MaxLength(150)]
         public string ImageKey { get; set; }

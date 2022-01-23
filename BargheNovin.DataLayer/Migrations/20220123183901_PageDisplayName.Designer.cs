@@ -3,14 +3,16 @@ using BargheNovin.DataLayer.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BargheNovin.DataLayer.Migrations
 {
     [DbContext(typeof(BargheNovinDBContext))]
-    partial class BargheNovinDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220123183901_PageDisplayName")]
+    partial class PageDisplayName
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,10 +32,6 @@ namespace BargheNovin.DataLayer.Migrations
 
                     b.Property<int>("ContentNameId")
                         .HasColumnType("int");
-
-                    b.Property<string>("ContentTitle")
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
 
                     b.Property<int>("PageId")
                         .HasColumnType("int");
@@ -74,10 +72,6 @@ namespace BargheNovin.DataLayer.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ContentTitle")
-                        .HasMaxLength(400)
-                        .HasColumnType("nvarchar(400)");
 
                     b.Property<string>("ImageKey")
                         .IsRequired()
