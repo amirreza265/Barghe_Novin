@@ -1,0 +1,160 @@
+﻿@model InputPageContentViewModel
+@{
+    ViewData["pageindex"] = 3;
+    ViewData["Title"] = "صفحه" + Model.PageName;
+}
+
+
+@section ContentHeader{
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">ویرایش بخش خدمات</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a href="/admin">خانه</a></li>
+                        <li class="breadcrumb-item active">خدمات</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+}
+
+<section class="content">
+    <div class="card card-primary col-md-12">
+        <div class="card-header">
+            <h3 class="card-title">فرم خدمات</h3>
+        </div>
+        <!-- /.card-header -->
+        <!-- form start -->
+        <form asp-area="admin"
+              asp-controller="mainpage"
+              asp-action="PostPage"
+              enctype="multipart/form-data"
+              method="post"
+              id="page-form">
+
+            <div class="card-body">
+                <input type="hidden" asp-for="PageName" />
+
+                <div class="row">
+                    <div class="col-md-8">
+                        @for (int i = 0; i < Model.Images.Count; i++)
+                        {
+                            var image = Model.Images[i];
+                            <div class="form-group">
+                                <div>
+                                    <img class="img-bordered img-thumbnail" id="@(image.ImgKey+image.ImgKey)" src="~/main/img/@image.ImageName" style="background-color:gray" />
+                                </div>
+                                <label for="exampleInputFile">تصاوبر نمایشی</label>
+                                <div class="input-group">
+                                    <div class="custom-file">
+                                        <input asp-for="Images[i].ImgKey" type="hidden"/>
+                                        <input asp-for="Images[i].ImageName" type="hidden"/>
+                                        <input asp-for="Images[i].ImageFile" class="custom-file-input" type="file"
+                                               onchange="document.getElementById('@(image.ImgKey + image.ImgKey)').src = window.URL.createObjectURL(this.files[@i])">
+                                        <label class="custom-file-label" for="Images_@(i)__ImageFile">انتخاب فایل</label>
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+                    <div class="col-md-4">
+                        @for (int i = 0; i < Model.Contents.Count; i++)
+                        {
+                            var content = Model.Contents[i];
+                            <div class="form-group">
+                                <label>محتوا</label>
+                                <input type="hidden" asp-for="Contents[i].ContentName" />
+                                <textarea asp-for="Contents[i].Content" class="form-control" rows="2" placeholder="توضیح مختصر">@content.Content</textarea>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group" asp-validation-summary="All">
+
+                </div>
+            </div>
+            <!-- /.card-body -->
+
+            <div class="card-footer">
+                <button type="submit" class="btn btn-primary">ارسال</button>
+            </div>
+        </form>
+    </div>
+</section>
+
+
+<template id="alert-success">
+    <swal-title>
+        فایل های شما با موفقیت ارسال شدند
+    </swal-title>
+    <swal-icon type="success" color="green"></swal-icon>
+    <swal-button type="confirm">
+        تشکر
+    </swal-button>
+    <swal-param name="allowEscapeKey" value="false" />
+    <swal-param name="customClass"
+                value='{ "popup": "my-popup" }' />
+</template>
+
+<template id="alert-error">
+    <swal-title>
+        خطا در ارسال داده ها
+    </swal-title>
+    <swal-icon type="error" color="red"></swal-icon>
+    <swal-button type="confirm">
+        تشکر
+    </swal-button>
+    <swal-param name="allowEscapeKey" value="false" />
+    <swal-param name="customClass"
+                value='{ "popup": "my-popup" }' />
+</template>
+
+@section scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script type="text/javascript">
+        function success() {
+            Swal.fire({
+                template: 'alert-success'
+            })
+
+            location.reload();
+        }
+        function error() {
+            Swal.fire({
+                template: 'alert-error'
+            })
+        }
+
+        // this is the id of the form
+        $("#page-form").submit(function (e) {
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var actionUrl = form.attr('action');
+
+            var formData = new FormData(this);
+
+            $.ajax({
+                url: actionUrl,
+                type: 'POST',
+                data: formData,
+                success: success,
+                error: error,
+                cache: false,
+                contentType: false,
+                processData: false
+            });
+
+        });
+    </script>
+}

@@ -46,13 +46,20 @@ namespace BargheNovin.Web.Mapping
                     src.Contents.FirstOrDefault(content => content.ContentName.Name == "SText4").ContentHtml));
 
 
-            CreateMap<PageContent, PageViewModel>();
+            CreateMap<PageContent, PageViewModel>()
+                .ForMember(des => des.ImageContents, opt => opt.MapFrom(src => src.Images));
+
+            CreateMap<PageContent, InputPageContentViewModel>();
+
             CreateMap<Content, ContentDto>()
                 .ForMember(cond => cond.Content, option => option.MapFrom(con => con.ContentHtml))
                 .ForMember(cond => cond.ContentName, option => option.MapFrom(con => con.ContentName.Name))
                 .ReverseMap();
 
             CreateMap<ImageContent, ShowImageViewModel>();
+            CreateMap<ImageContent, ImageContentDto>()
+                .ForMember(des => des.ImgKey, opt => opt.MapFrom(src => src.ImageKey))
+                .ReverseMap();
         }
     }
 }

@@ -58,9 +58,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="./index3.html" class="nav-link @(((int)ViewData["pageindex"] == 3)?"active":"")">
+                            <a asp-area="admin"
+                               asp-controller="mainpage"
+                               asp-action="editpage"
+                               class="nav-link @(((int)ViewData["pageindex"] == 3)?"active":"")">
                                 <i class="fa fa-circle-o nav-icon"></i>
-                                <p>نمونه کار</p>
+                                <p>صفحات دیگر</p>
                             </a>
                         </li>
                     </ul>

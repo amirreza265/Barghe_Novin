@@ -121,5 +121,27 @@ namespace BargheNovin.Web.Areas.Admin.Controllers
 
             return RedirectToAction("Services");
         }
+
+
+        public IActionResult EditPage(string pageName = "Services")
+        {
+            var page = _pageService.GetPageContentBy(pageName);
+            var pageVM = _mapper.Map<InputPageContentViewModel>(page);
+            return View(pageVM);
+        }
+
+        [HttpPost]
+        public IActionResult PostPage(InputPageContentViewModel page)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View("EditPage", page);
+            }
+
+
+            _pageService.UpdatePageContents(page.PageName, page.Contents, page.Images);
+
+            return Json(true);
+        }
     }
 }
