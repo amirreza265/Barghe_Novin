@@ -1,10 +1,11 @@
-﻿          
+﻿
 @inject IPageService _pageService
 
-@{ 
+@{
     var pages = _pageService.GetPageNames();
+    var pageindex = (int)ViewData["pageindex"];
 }
-  <!-- Sidebar -->
+<!-- Sidebar -->
 <div class="sidebar" style="direction: ltr">
     <div style="direction: rtl">
         <!-- Sidebar user panel (optional) -->
@@ -24,7 +25,7 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                 <!-- Add icons to the links using the .nav-icon class
                 with font-awesome or any other icon font library -->
-                <li class="nav-item  @(((int)ViewData["pageindex"] == 0) ? "menu-open" : "")">
+                <li class="nav-item  @((pageindex == 0) ? "menu-open" : "")">
                     <a asp-area="admin"
                        asp-controller="home"
                        asp-action="index"
@@ -38,9 +39,9 @@
 
                 @{
                     var indexes = pages.Select(p => p.Item3).ToList();
-                    indexes.AddRange(new List<int>(){ -1,0});
-                    bool active = (indexes.Contains((int)ViewData["pageindex"]));
-                 }
+                    indexes.AddRange(new List<int>() { -1, -2 });
+                    bool active = indexes.Contains(pageindex);
+                }
                 <li class="nav-item has-treeview @(active?"menu-open":"")">
                     <a href="#" class="nav-link  @(active?"active":"")">
                         <i class="nav-icon fa fa-map"></i>
@@ -53,7 +54,7 @@
                         <li class="nav-item">
                             <a asp-area="admin"
                                asp-controller="mainPage"
-                               asp-action="logo" class="nav-link  @(((int)ViewData["pageindex"] == -1)?"active":"")">
+                               asp-action="logo" class="nav-link  @((pageindex == -1)?"active":"")">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>لوگوها</p>
                             </a>
@@ -65,21 +66,44 @@
                                    asp-controller="mainPage"
                                    asp-action="EditPage"
                                    asp-route-pageName="@pageNs.Item1"
-                                   class="nav-link  @(((int)ViewData["pageindex"] == pageNs.Item3)?"active":"")">
+                                   class="nav-link  @((pageindex == pageNs.Item3)?"active":"")">
                                     <i class="fa fa-circle-o nav-icon"></i>
                                     <p>@pageNs.Item2</p>
                                 </a>
                             </li>
                         }
                         @*<li class="nav-item">
+                                <a asp-area="admin"
+                                   asp-controller="mainpage"
+                                   asp-action="editpage"
+                                   class="nav-link @((pageindex == -1)?"active":"")">
+                                    <i class="fa fa-circle-o nav-icon"></i>
+                                    <p>صفحات دیگر</p>
+                                </a>
+                            </li>*@
+                    </ul>
+                </li>
+                @{
+                    indexes = new List<int>() { -3, -4 };
+                    active = (indexes.Contains(pageindex));
+                }
+                <li class="nav-item has-treeview @(active?"menu-open":"")">
+                    <a href="#" class="nav-link  @(active?"active":"")">
+                        <i class="nav-icon fa fa-briefcase"></i>
+                        <p>
+                            نمونه کار ها
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
                             <a asp-area="admin"
-                               asp-controller="mainpage"
-                               asp-action="editpage"
-                               class="nav-link @(((int)ViewData["pageindex"] == -1)?"active":"")">
+                               asp-controller="WorkSamples"
+                               asp-action="index" class="nav-link  @((pageindex == -4)?"active":"")">
                                 <i class="fa fa-circle-o nav-icon"></i>
-                                <p>صفحات دیگر</p>
+                                <p>نمونه کار ها</p>
                             </a>
-                        </li>*@
+                        </li>
                     </ul>
                 </li>
             </ul>
