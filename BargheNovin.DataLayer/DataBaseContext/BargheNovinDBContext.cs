@@ -1,5 +1,6 @@
 ﻿using BargheNovin.DataLayer.Entities;
 using BargheNovin.DataLayer.Entities.PageContent;
+using BargheNovin.DataLayer.Entities.WorkSamples;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -24,6 +25,11 @@ namespace BargheNovin.DataLayer.DataBaseContext
         public DbSet<PageContent> PageContents { get; set; }
         public DbSet<ContentName> ContentNames { get; set; }
         public DbSet<ImageContent> ImageContents { get; set; }
+        #endregion
+
+        #region Portfolio
+        public DbSet<Portfolio> Portfolio { get; set; }
+        public DbSet<PortfolioCategory> PortfolioCategories { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

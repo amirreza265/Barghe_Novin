@@ -1,6 +1,9 @@
 ﻿using AutoMapper;
+using BargheNovin.Core.DTOs;
 using BargheNovin.Core.DTOs.Content;
+using BargheNovin.Core.DTOs.Portfolio;
 using BargheNovin.DataLayer.Entities.PageContent;
+using BargheNovin.DataLayer.Entities.WorkSamples;
 using BargheNovin.Web.Areas.Admin.Models.PagiesContent;
 using System;
 using System.Collections.Generic;
@@ -60,6 +63,14 @@ namespace BargheNovin.Web.Mapping
             CreateMap<ImageContent, ImageContentDto>()
                 .ForMember(des => des.ImgKey, opt => opt.MapFrom(src => src.ImageKey))
                 .ReverseMap();
+
+            CreateMap<Portfolio, MainPagePortfolioViewModel>()
+                .ReverseMap();
+            
+            CreateMap<PortfolioCategory, CategoryViewModel>()
+                .ReverseMap();
+
+            CreateMap<ListPageViewModel<Portfolio>, ListPageViewModel<MainPagePortfolioViewModel>>();
         }
     }
 }

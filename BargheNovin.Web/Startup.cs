@@ -37,6 +37,7 @@ namespace BargheNovin.Web
             #region Ioc
             services.AddScoped<ILogoService, LogoService>();
             services.AddScoped<IPageService, PageService>();
+            services.AddScoped<IPortfolioService, PortfolioService>();
             #endregion
         }
 
