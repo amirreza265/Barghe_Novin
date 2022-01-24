@@ -2,8 +2,24 @@
 @{
     ViewData["Title"] = "صفحه اصلی";
     var pages = ViewData["Pages"] as List<PageViewModel>;
-    var sPageVm = pages.SingleOrDefault(p => p.PageName == "Services");
-    var fwPageVm = pages.SingleOrDefault(p => p.PageName == "for-work");
+    PageViewModel sPageVm = pages[0];
+    PageViewModel fwPageVm = pages[0];
+    PageViewModel wsPageVm = pages[0];
+    foreach (var p in pages)
+    {
+        switch (p.PageName)
+        {
+            case "Services":
+                sPageVm = p;
+                break;
+            case "for-work":
+                fwPageVm = p;
+                break;
+            case "work-samples":
+                wsPageVm = p;
+                break;
+        }
+    }
 }
 
 @section main_image  {
@@ -142,7 +158,7 @@
     <!--main-section-start-->
     <div class="container">
         <h2>نمونه کار</h2>
-        <h6>لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است</h6>
+        <h6>@Html.Raw(wsPageVm.GetContent("WorkSamplesDescription"))</h6>
         <div class="portfolioFilter">
             <ul class="Portfolio-nav wow fadeIn delay-02s">
                 <li><a href="#" data-filter="*" class="current">همه</a></li>
