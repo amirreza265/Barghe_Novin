@@ -20,17 +20,9 @@ namespace BargheNovin.Core.Services
             _context = context;
         }
 
-        public ListPageViewModel<Portfolio> GetPortfolioWhere(int pageId = 1, int take = 20, string nameFilter = "", string categoryFilter = "")
+        public ListPageViewModel<Portfolio> GetPortfolioWhere(int pageId, int take = 20, string nameFilter = "", string categoryFilter = "")
         {
-            IQueryable<Portfolio> result = _context.Portfolio
-                .Include(p => p.Category)
-                .AsSplitQuery();
-
-            if (nameFilter != null && nameFilter != "")
-                result = result.Where(p => EF.Functions.Like(p.Name, $"%{nameFilter}%"));
-
-            if (categoryFilter != null && categoryFilter != "")
-                result = result.Where(p => EF.Functions.Like(p.Name, $"%{categoryFilter}%"));
+            IQueryable<Portfolio> result = GetPrtfolioQuery(nameFilter, categoryFilter);
 
             if (take < 1)
                 take = 20;
@@ -39,11 +31,35 @@ namespace BargheNovin.Core.Services
             var list = new ListPageViewModel<Portfolio>()
             {
                 CurrentPage = pageId,
-                PageCount = (int)MathF.Ceiling(result.Count() / take),
+                PageCount = (int)MathF.Ceiling((float)result.Count() / take),
                 Data = result.Skip(skip).Take(take).ToList()
             };
 
             return list;
+        }
+
+        private IQueryable<Portfolio> GetPrtfolioQuery(string nameFilter = "", string categoryFilter = "", bool includeCategory = true)
+        {
+            IQueryable<Portfolio> result = _context.Portfolio;
+
+            if (includeCategory)
+                result = result.Include(p => p.Category)
+                   .AsSplitQuery();
+
+            if (nameFilter != null && nameFilter != "")
+                result = result.Where(p => EF.Functions.Like(p.Name, $"%{nameFilter}%"));
+
+            if (categoryFilter != null && categoryFilter != "")
+                result = result.Where(p => EF.Functions.Like(p.Name, $"%{categoryFilter}%"));
+
+            return result;
+        }
+
+        public List<Portfolio> GetPortfolioWhere(string nameFilter = "", string categoryFilter = "")
+        {
+            IQueryable<Portfolio> result = GetPrtfolioQuery(nameFilter, categoryFilter);
+
+            return result.ToList();
         }
     }
 }

@@ -1,0 +1,126 @@
+﻿@model List<MainPagePortfolioViewModel>
+@{
+    ViewData["pageindex"] = -3;
+    ViewData["Title"] = "نمونه کار ها";
+}
+
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/admin/plugins/datatables/dataTables.bootstrap4.css">
+}
+
+
+@section ContentHeader{
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark"> نمونه کار ها</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item"><a asp-area="admin"
+                                                       asp-controller="home"
+                                                       asp-action="index">خانه</a></li>
+                        <li class="breadcrumb-item active">لیست نمونه کار ها</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+}
+
+
+
+
+
+<div class="card">
+    <div class="card-header">
+        <h3 class="card-title">جدول نمونه کار ها</h3>
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>تصویر</th>
+                    <th>نام</th>
+                    <th>نام گروه</th>
+                    <th>درستورات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>
+                            <div>
+                                <img class="img-fluid img-thumbnail" src="~/main/img/@p.ImageName" style="max-height:50px" />
+                            </div>
+                        </td>
+                        <td>@p.Name</td>
+                        <td>
+                            @p.Category.Name
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <a class="btn btn-outline-danger">حذف</a>
+                                <a class="btn btn-outline-primary">ویرایش</a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>تصویر</th>
+                    <th>نام</th>
+                    <th>نام گروه</th>
+                    <th>درستورات</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+
+
+
+
+@section scripts{
+
+    <!-- DataTables -->
+    <script src="/admin/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="/admin/plugins/datatables/dataTables.bootstrap4.js"></script>
+
+    <!-- page script -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "language": {
+                    "paginate": {
+                        "next": "بعدی",
+                        "previous": "قبلی"
+                    }
+                },
+                "info": false,
+            });
+            $('#example2').DataTable({
+                "language": {
+                    "paginate": {
+                        "next": "بعدی",
+                        "previous": "قبلی"
+                    }
+                },
+                "info": false,
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "autoWidth": false
+            });
+        });</script>
+}

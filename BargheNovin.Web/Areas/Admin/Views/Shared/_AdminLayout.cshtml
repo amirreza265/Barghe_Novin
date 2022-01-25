@@ -7,7 +7,7 @@
     <!-- Tell the browser to be responsive to screen width -->
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <partial name="_AdminStyles" />
-
+    @RenderSection("styles", required: false)
 </head>
 <body class="hold-transition sidebar-mini">
     <div class="wrapper">
@@ -168,9 +168,16 @@
             @RenderSection("ContentHeader", required: true)
             <!-- /.content-header -->
             <!-- Main content -->
-            @RenderBody()
-            <!-- /.content -->
+            <section class="content">
+                <div class="row">
+                    <div class="col-12">
+                        @RenderBody()
+                        <!-- /.content -->
+                    </div>
+                </div>
+            </section>
         </div>
+
         <!-- /.content-wrapper -->
         <footer class="main-footer">
             <strong>برق نوین</strong>
