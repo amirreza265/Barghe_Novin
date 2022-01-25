@@ -3,14 +3,16 @@ using BargheNovin.DataLayer.DataBaseContext;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace BargheNovin.DataLayer.Migrations
 {
     [DbContext(typeof(BargheNovinDBContext))]
-    partial class BargheNovinDBContextModelSnapshot : ModelSnapshot
+    [Migration("20220125102703_Portfolio_IsDelete")]
+    partial class Portfolio_IsDelete
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

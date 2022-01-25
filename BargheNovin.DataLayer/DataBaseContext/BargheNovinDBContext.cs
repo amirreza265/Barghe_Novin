@@ -50,6 +50,13 @@ namespace BargheNovin.DataLayer.DataBaseContext
                 .HasIndex(img => img.ImageKey)
                 .IsUnique();
 
+            modelBuilder.Entity<Portfolio>()
+                .HasQueryFilter(p => !p.IsDeleted);
+
+            modelBuilder.Entity<PortfolioCategory>()
+                .HasIndex(pc => pc.FilterName)
+                .IsUnique();
+
             base.OnModelCreating(modelBuilder);
         }
     }

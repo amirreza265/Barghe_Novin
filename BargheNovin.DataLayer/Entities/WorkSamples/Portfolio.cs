@@ -23,6 +23,8 @@ namespace BargheNovin.DataLayer.Entities.WorkSamples
         public string Description { get; set; }
         public int CategoryId { get; set; }
 
+        public bool IsDeleted { get; set; }
+
         [ForeignKey("CategoryId")]
         public PortfolioCategory Category { get; set; }
     }

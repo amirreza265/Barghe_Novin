@@ -65,8 +65,11 @@
                         </td>
                         <td>
                             <div class="btn-group">
-                                <a class="btn btn-outline-danger">حذف</a>
-                                <a class="btn btn-outline-primary">ویرایش</a>
+                                <a onclick="deleteThis(@p.PortfolioId)" class="btn btn-outline-danger">حذف</a>
+                                <a asp-area="admin"
+                                   asp-controller="portfolio"
+                                   asp-action="edit"
+                                   asp-route-id="@p.PortfolioId"  class="btn btn-outline-primary">ویرایش</a>
                             </div>
                         </td>
                     </tr>
@@ -123,4 +126,10 @@
                 "autoWidth": false
             });
         });</script>
+
+    <script>
+        function deleteThis(id) {
+
+        }
+    </script>
 }

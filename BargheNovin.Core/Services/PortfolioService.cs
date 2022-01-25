@@ -61,5 +61,12 @@ namespace BargheNovin.Core.Services
 
             return result.ToList();
         }
+
+        public List<Tuple<int, string>> GetGategories()
+        {
+            return _context.PortfolioCategories
+                .Select(pc => new Tuple<int, string>(pc.CategoryId, pc.Name))
+                .ToList();
+        }
     }
 }

@@ -12,5 +12,9 @@ namespace BargheNovin.Core.Services.Interface
     {
         ListPageViewModel<Portfolio> GetPortfolioWhere(int pageId, int take=20, string nameFilter = "", string categoryFilter = "");
         List<Portfolio> GetPortfolioWhere(string nameFilter = "", string categoryFilter = "");
+
+        List<Tuple<int, string>> GetGategories();
+
+        //Portfolio AddOrEdit();
     }
 }
