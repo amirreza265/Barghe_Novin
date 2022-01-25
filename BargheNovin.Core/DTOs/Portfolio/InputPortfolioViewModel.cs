@@ -30,6 +30,8 @@ namespace BargheNovin.Core.DTOs.Portfolio
         [Display(Name = "نام عکس فعلی")]
         public string ImageName { get; set; }
 
+        public bool ShowInMainPage { get; set; }
+
         public int CategoryId { get; set; }
     }
 }

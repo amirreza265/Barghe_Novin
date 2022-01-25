@@ -1,7 +1,9 @@
 ﻿using AutoMapper;
+using BargheNovin.Core.Directories;
 using BargheNovin.Core.DTOs;
 using BargheNovin.Core.DTOs.Portfolio;
 using BargheNovin.Core.Services.Interface;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -27,6 +29,35 @@ namespace BargheNovin.Web.Areas.Admin.Controllers
             var port = _portfolioService.GetPortfolioWhere();
             var portVm = _mapper.Map <List<MainPagePortfolioViewModel>>(port);
             return View(portVm);
+        }
+
+        public IActionResult Create()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public IActionResult Create(InputPortfolioViewModel model)
+        {
+            if (!ModelState.IsValid)
+                return View(model);
+
+            //Todo: create new
+
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult UploadImage(IFormFile upload, string CKEditorFuncNum, string CKEditor, string langCode)
+        {
+            if (!(upload?.Length > 0))
+                return null;
+
+            var name = UploadFile.AddFile(upload, true, "wwwroot", "main", "img", "uploaded" );
+
+            var url = $"/main/img/uploaded/{name}";
+
+            return Json(new { uploaded = true, url });
         }
     }
 }

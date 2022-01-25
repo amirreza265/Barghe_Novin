@@ -32,7 +32,7 @@ namespace BargheNovin.Core.Services
             {
                 CurrentPage = pageId,
                 PageCount = (int)MathF.Ceiling((float)result.Count() / take),
-                Data = result.Skip(skip).Take(take).ToList()
+                Data = result.OrderBy(p => p.PortfolioId).Skip(skip).Take(take).ToList()
             };
 
             return list;

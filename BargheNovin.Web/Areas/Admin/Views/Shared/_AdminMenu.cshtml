@@ -84,7 +84,7 @@
                     </ul>
                 </li>
                 @{
-                    indexes = new List<int>() { -3};
+                    indexes = new List<int>() { -3,-4};
                     active = (indexes.Contains(pageindex));
                 }
                 <li class="nav-item has-treeview @(active?"menu-open":"")">
@@ -103,6 +103,15 @@
                                class="nav-link  @((pageindex == -3)?"active":"")">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>لیست نمونه کار ها</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a asp-area="admin"
+                               asp-controller="portfolio"
+                               asp-action="create"
+                               class="nav-link  @((pageindex == -4)?"active":"")">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>ساخت نمونه کار جدید</p>
                             </a>
                         </li>
                     </ul>
