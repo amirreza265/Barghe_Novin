@@ -138,7 +138,15 @@
         }
 
         function changeShow(id) {
-
+            var inputId = "#pf-" + id;
+            $(inputId).change(function () {
+                $.getJSON("admin/change-show/" + id + "/" + $(inputId).val,
+                    function (data) {
+                        $.each(data, function () {
+                            $(inputId).attr('value', this.showInMain)
+                        })
+                    })
+            })
         }
     </script>
 }

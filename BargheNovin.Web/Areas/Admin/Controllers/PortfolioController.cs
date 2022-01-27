@@ -60,5 +60,15 @@ namespace BargheNovin.Web.Areas.Admin.Controllers
 
             return Json(new { uploaded = true, url });
         }
+
+        [Route("admin/change-show/{id}/{showInMain}")]
+        public IActionResult ChangeShow(int id, bool showInMain)
+        {
+            var p = _portfolioService.GetPortfolioBy(id);
+            p.ShowInMainPage = showInMain;
+            _portfolioService.Update(p);
+
+            return Json(new { id = id, showInMain = p.ShowInMainPage });
+        }
     }
 }

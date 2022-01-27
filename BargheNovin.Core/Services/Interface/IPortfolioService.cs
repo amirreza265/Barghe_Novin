@@ -27,6 +27,8 @@ namespace BargheNovin.Core.Services.Interface
 
         Portfolio CreateNewPortfolio(InputPortfolioViewModel input, bool save = true);
 
-        void Update<E>(E entity, bool save = true); 
+        void Update<E>(E entity, bool save = true);
+
+        Portfolio GetPortfolioBy(int id, bool includeCategory = true);
     }
 }

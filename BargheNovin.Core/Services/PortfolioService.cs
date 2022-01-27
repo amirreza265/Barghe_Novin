@@ -116,5 +116,16 @@ namespace BargheNovin.Core.Services
             if (save)
                 _context.SaveChanges();
         }
+
+        public Portfolio GetPortfolioBy(int id, bool includeCategory = true)
+        {
+            IQueryable<Portfolio> result = _context.Portfolio;
+
+            if (includeCategory)
+                result.Include(p => p.Category)
+                    .AsSplitQuery();
+
+            return result.SingleOrDefault(p => p.PortfolioId==id);
+        }
     }
 }
