@@ -43,8 +43,9 @@ namespace BargheNovin.Web.Areas.Admin.Controllers
                 return View(model);
 
             //Todo: create new
+            _portfolioService.CreateNewPortfolio(model);
 
-            return View();
+            return RedirectToAction("index");
         }
 
         [HttpPost]

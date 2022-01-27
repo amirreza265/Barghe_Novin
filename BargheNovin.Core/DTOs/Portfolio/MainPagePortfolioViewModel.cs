@@ -12,5 +12,7 @@ namespace BargheNovin.Core.DTOs.Portfolio
         public string Name { get; set; }
         public string ImageName { get; set; }
         public CategoryViewModel Category { get; set; }
+
+        public bool ShowInMainPage { get; set; }
     }
 }

@@ -35,7 +35,7 @@
     </div>
     <!-- /.card-header -->
     <!-- form start -->
-    <form class="form-horizontal"
+    <form class="form-horizontal" enctype="multipart/form-data"
           asp-area="admin"
           asp-controller="portfolio"
           asp-action="create">
@@ -45,6 +45,7 @@
                     <label for="name" class="col-sm-2 control-label">نام</label>
 
                     <div class="col-sm-12">
+                        <input asp-for="ImageName" value="noimage.png" hidden/>
                         <input class="form-control" asp-for="Name" placeholder="نام نمایشی برای نمونه کار">
                     </div>
                 </div>
@@ -89,6 +90,10 @@
                         <label class="custom-file-label" for="image">انتخاب فایل</label>
                     </div>
                 </div>
+            </div>
+
+            <div class="text-danger" asp-validation-summary="All">
+
             </div>
 
         </div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using BargheNovin.Core.Attributes;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -23,6 +24,9 @@ namespace BargheNovin.Core.DTOs.Portfolio
         [Display(Name = "توضیحات")]
         public string Description { get; set; }
 
+        [Display(Name = "عکس نمایشی")]
+        [FileMaxSize(Size = 1024 * 1024, ErrorMessage = "حجم فایل {0} نمی تواند بیشتر از {1} باشد")]
+        [AllowedExtensions(extensions: new string[] { ".jpg", ".png", ".jpeg" }, ErrorMessage = "پسوند تصویر باید {1} باشد")]
         public IFormFile Image { get; set; }
 
         [MaxLength(150, ErrorMessage = "{0} نمی تواند بیشتر از {1} کاراکتر باشد")]

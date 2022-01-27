@@ -23,15 +23,14 @@ namespace BargheNovin.Core.Directories
             {
                 if (imageSize <= 0)
                 {
-                    imageSize = image.Height;
+                    imageSize = (image.Height < image.Width)?image.Height:image.Width;
                 }
 
-                image.Mutate(x => x
-                     .Resize(imageSize, (int)(imageSize * ((float)(image.Height / image.Width))))
-                     .Crop(
-                     (imageSize > x.GetCurrentSize().Width) ? x.GetCurrentSize().Width : imageSize,
-                     (imageSize > x.GetCurrentSize().Height)? x.GetCurrentSize().Height :imageSize)
-                     );
+                image.Mutate(x =>x
+                .Resize(imageSize, (int)(imageSize * ((float)(image.Height / image.Width))))
+                .Crop(
+                    (imageSize > x.GetCurrentSize().Width) ? x.GetCurrentSize().Width : imageSize,
+                    (imageSize > x.GetCurrentSize().Height) ? x.GetCurrentSize().Height : imageSize));
 
                 image.Save(imgPath); // Automatic encoder selected based on extension.
             }
@@ -43,6 +42,7 @@ namespace BargheNovin.Core.Directories
                     root,
                     imageName);
 
+            int max = (imageWidth > imageHeight) ?imageWidth:imageHeight;
             using (Image<Rgba32> image = (Image<Rgba32>)Image.Load(imgPath))
             {
                 image.Mutate(x => x

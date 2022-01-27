@@ -34,8 +34,8 @@ namespace BargheNovin.Web.Controllers
             var pages = _pageService.GetPageContents(new List<string>() { "Services", "for-work", "work-samples" });
             var pagesVM = _mapper.Map<List<PageViewModel>>(pages);
 
-            var portfolio = _portfolioService.GetPortfolioWhere(pageId: 1, take: 6);
-            var portVM = _mapper.Map<List<MainPagePortfolioViewModel>>(portfolio.Data);
+            var portfolio = _portfolioService.GetPortfolioWhere(showInMainPage:true);
+            var portVM = _mapper.Map<List<MainPagePortfolioViewModel>>(portfolio);
 
             ViewData["Pages"] = pagesVM;
             ViewData["portfolio"] = portVM;

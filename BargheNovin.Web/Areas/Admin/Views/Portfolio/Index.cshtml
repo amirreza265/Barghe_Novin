@@ -47,6 +47,7 @@
                     <th>تصویر</th>
                     <th>نام</th>
                     <th>نام گروه</th>
+                    <th>نمایش در صفحه اصلی</th>
                     <th>درستورات</th>
                 </tr>
             </thead>
@@ -56,12 +57,16 @@
                     <tr>
                         <td>
                             <div>
-                                <img class="img-fluid img-thumbnail" src="~/main/img/@p.ImageName" style="max-height:50px" />
+                                <img class="img-fluid img-thumbnail" src="~/main/img/portfolio/@p.ImageName" style="max-height:50px" />
                             </div>
                         </td>
                         <td>@p.Name</td>
                         <td>
                             @p.Category.Name
+                        </td>
+                        <td>
+                            <input class="checkbox" onchange="changeShow(@p.PortfolioId)"
+                                   type="checkbox" name="p@(p.PortfolioId)" id="pf-@p.PortfolioId" @(p.ShowInMainPage?"checked":"") />
                         </td>
                         <td>
                             <div class="btn-group">
@@ -129,6 +134,10 @@
 
     <script>
         function deleteThis(id) {
+
+        }
+
+        function changeShow(id) {
 
         }
     </script>
