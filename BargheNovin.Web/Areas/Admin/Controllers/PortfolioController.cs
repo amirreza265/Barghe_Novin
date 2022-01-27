@@ -65,6 +65,10 @@ namespace BargheNovin.Web.Areas.Admin.Controllers
         public IActionResult ChangeShow(int id, bool showInMain)
         {
             var p = _portfolioService.GetPortfolioBy(id);
+
+            if (p == null)
+                return Json(false);
+
             p.ShowInMainPage = showInMain;
             _portfolioService.Update(p);
 
