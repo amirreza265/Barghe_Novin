@@ -67,8 +67,8 @@
                             @p.Category.Name
                         </td>
                         <td>
-                            <input class="checkbox" onchange="changeShow(@p.PortfolioId)"
-                                   type="checkbox" name="p@(p.PortfolioId)" id="pf-@p.PortfolioId" @(p.ShowInMainPage ? "checked" : "") />
+                            <input class="checkbox" onclick="changeShow(@p.PortfolioId, this.id)"
+                                   type="checkbox" name="p@(p.PortfolioId)" id="pf@(p.PortfolioId)" @(p.ShowInMainPage ? "checked" : "") />
                         </td>
                         <td>
                             <div class="btn-group">
@@ -140,44 +140,75 @@
     <script>
         function deleteThis(id) {
             Swal.fire({
-                title: 'Are you sure?',
-                text: "You won't be able to revert this!",
+                title: "حذف",
+                text: "آیا از حذف ایتم مطمءن هستید!",
                 icon: 'warning',
                 showCancelButton: true,
                 confirmButtonColor: '#3085d6',
                 cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes, delete it!'
+                confirmButtonText: 'بله, حذف کن!',
+                cancelButtonText:'لغو'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(
-                        'Deleted!',
-                        'Your file has been deleted.',
-                        'success'
-                    )
+                    $.getJSON("/admin/portfolio/delete/" + id,
+                        function (data) {
+                            if (data == false || data == null) {
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'error',
+                                    title: 'حذف انجام نشد...',
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                })
+                              
+                            } else {
+                                Swal.fire({
+                                    position: 'top-end',
+                                    icon: 'success',
+                                    title: 'حذف انجام شد...',
+                                    showConfirmButton: true,
+                                    timer: 3000,
+                                    confirmButtonText: 'رفرش صفحه'
+                                }).then((result) => {
+                                    if (result.isConfirmed) {
+                                        location.reload();
+                                    }
+                                });
+                                
+                            }
+
+                        });
                 }
             })
         }
 
-        function changeShow(id) {
-            var inputId = "#pf-" + id;
-            $(inputId).change(function () {
-                $.getJSON("admin/change-show/" + id + "/" + $(inputId).val,
-                    function (data) {
-                        if (data == null) {
-                            Swal.fire({
-                                position: 'top-end',
-                                icon: 'error',
-                                title: 'تغییر انجام نشد...',
-                                showConfirmButton: false,
-                                timer: 1500
-                            })
-                        }
+        function changeShow(id, inputId) {
+            //alert("Checkbox state (" + inputId + ") = " + $('#'+inputId).is(':checked'));
+            $.getJSON("/admin/change-show/" + id + "/" + $('#' + inputId).is(':checked'),
+                function (data) {
+                    if (data == false || data == null) {
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'error',
+                            title: 'تغییر انجام نشد...',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    }
 
-                        $.each(data, function () {
-                            $(inputId).attr('value', this.showInMain)
+                    $.each(data, function () {
+                        $(inputId).attr('value', this.showInMain)
+                        Swal.fire({
+                            position: 'top-end',
+                            icon: 'success',
+                            title: 'تغییر انجام شد...',
+                            showConfirmButton: false,
+                            timer: 1500
                         })
                     })
-            })
+                },
+            )
+
         }
     </script>
 }

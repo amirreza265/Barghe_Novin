@@ -30,5 +30,7 @@ namespace BargheNovin.Core.Services.Interface
         void Update<E>(E entity, bool save = true);
 
         Portfolio GetPortfolioBy(int id, bool includeCategory = true);
+
+        void DeletePortfolio(int id);
     }
 }

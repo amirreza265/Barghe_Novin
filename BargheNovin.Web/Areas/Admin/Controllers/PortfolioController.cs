@@ -74,5 +74,19 @@ namespace BargheNovin.Web.Areas.Admin.Controllers
 
             return Json(new { id = id, showInMain = p.ShowInMainPage });
         }
+        
+
+        public IActionResult Delete(int id)
+        {
+            try
+            {
+                _portfolioService.DeletePortfolio(id);
+                return Json(true);
+            }
+            catch
+            {
+                return Json(false);
+            }
+        }
     }
 }

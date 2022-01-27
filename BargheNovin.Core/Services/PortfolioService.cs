@@ -127,5 +127,12 @@ namespace BargheNovin.Core.Services
 
             return result.SingleOrDefault(p => p.PortfolioId==id);
         }
+
+        public void DeletePortfolio(int id)
+        {
+            var por = GetPortfolioBy(id);
+            por.IsDeleted = true;
+            Update(por);
+        }
     }
 }
