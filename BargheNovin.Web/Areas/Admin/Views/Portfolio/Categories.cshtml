@@ -1,0 +1,240 @@
+﻿@model List<BargheNovin.DataLayer.Entities.WorkSamples.PortfolioCategory>
+
+@{
+    ViewData["pageindex"] = -5;
+    ViewData["Title"] = "گروه ها";
+}
+@section styles{
+    <!-- DataTables -->
+    <link rel="stylesheet" href="/admin/plugins/datatables/dataTables.bootstrap4.css">
+}
+
+@section ContentHeader{
+    <div class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1 class="m-0 text-dark">گروه ها</h1>
+                </div><!-- /.col -->
+                <div class="col-sm-6">
+                    <ol class="breadcrumb float-sm-left">
+                        <li class="breadcrumb-item">
+                            <a asp-area="admin"
+                               asp-controller="home"
+                               asp-action="index">خانه</a>
+                        </li>
+                        <li class="breadcrumb-item active">گروه بندی</li>
+                    </ol>
+                </div><!-- /.col -->
+            </div><!-- /.row -->
+        </div><!-- /.container-fluid -->
+    </div>
+
+}
+
+
+
+
+<div class="card">
+    <div class="card-header">
+        <div class="card-header d-flex p-0">
+            <h3 class="card-title p-3">
+                <i class="fa fa-pie-chart mr-1"></i>
+                جدول گروه ها
+            </h3>
+            <ul class="nav nav-pills mr-auto p-2">
+                <li class="nav-item">
+                    <button type="button" class="btn btn-primary"
+                            data-toggle="modal" data-target="#mymodal"
+                            data-title="ایجاد گروه جدید" data-id="0"
+                            data-name="" data-action="/admin/portfolio/createcategory"
+                            data-filtername="">
+                        ایجاد گروه جدید
+                    </button>
+                </li>
+            </ul>
+        </div><!-- /.card-header -->
+    </div>
+    <!-- /.card-header -->
+    <div class="card-body">
+        <table id="example1" class="table table-bordered table-striped">
+            <thead>
+                <tr>
+                    <th>نام</th>
+                    <th>نام فیلتر</th>
+                    <th>درستورات</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var pc in Model)
+                {
+                    <tr>
+                        <td>@pc.Name</td>
+                        <td>
+                            @pc.FilterName
+                        </td>
+                        <td>
+                            <div class="btn-group">
+                                <button type="button" class="btn btn-primary"
+                                        data-toggle="modal" data-target="#mymodal"
+                                        data-title="ویرایش" data-id="@pc.CategoryId"
+                                        data-name="@pc.Name" data-action="/admin/portfolio/editcategory"
+                                        data-filtername="@pc.FilterName">
+                                    ویرایش
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+            <tfoot>
+                <tr>
+                    <th>نام</th>
+                    <th>نام فیلتر</th>
+                    <th>درستورات</th>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+    <!-- /.card-body -->
+</div>
+<!-- /.card -->
+
+
+
+
+
+
+
+<div class="modal fade" id="mymodal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLable">ویرایش گروه</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" id="modalbody">
+                <form id="edit-form"
+                      class="form-horizontal">
+                    <div class="card-body">
+                        <div class="form-group">
+                            <label for="Name" class="col-sm-2 control-label">نام</label>
+
+                            <div class="col-sm-10">
+                                <input name="CategoryId" id="CategoryId" hidden>
+                                <input class="form-control" name="Name" id="Name" placeholder="نام را وارد کنید">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="FilterName" class="col-sm-2 control-label">نام فیلتر</label>
+
+                            <div class="col-sm-10">
+                                <input class="form-control" name="FilterName" id="FilterName" placeholder="نام فیلتر را وارد کنید">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.card-body -->
+                    <div class="card-footer">
+                        <button type="submit" class="btn btn-info">ثبت</button>
+                    </div>
+                    <!-- /.card-footer -->
+                </form>
+            </div>
+            @*<div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">لغو</button>
+                    <button type="submit" class="btn btn-primary">ثبت</button>
+                </div>*@
+        </div>
+    </div>
+</div>
+
+
+
+@section scripts{
+
+    <!-- DataTables -->
+    <script src="/admin/plugins/datatables/jquery.dataTables.js"></script>
+    <script src="/admin/plugins/datatables/dataTables.bootstrap4.js"></script>
+
+    <!-- Sweet Alert 2 -->
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <!-- page script -->
+    <script>
+        $(function () {
+            $("#example1").DataTable({
+                "language": {
+                    "paginate": {
+                        "next": "بعدی",
+                        "previous": "قبلی"
+                    }
+                },
+                "info": false,
+            });
+        });</script>
+
+
+    <script>
+        $('#mymodal').on('show.bs.modal', function (event) {
+                var button = $(event.relatedTarget) // Button that triggered the modal
+                var title = button.data('title') // Extract info from data-* attributes
+                var id = button.data('id') // Extract info from data-* attributes
+                var name = button.data('name') // Extract info from data-* attributes
+                var filtername = button.data('filtername') // Extract info from data-* attributes
+                var action = button.data('action') // Extract info from data-* attributes
+                // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+                // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+                var modal = $(this)
+                modal.find('.modal-title').text(title)
+                modal.find('#Name').val(name)
+                modal.find('#FilterName').val(filtername)
+            modal.find('#CategoryId').val(id)
+            $('#edit-form').attr('action', action);
+        })
+    </script>
+
+    <script>
+
+        // this is the id of the form
+        $("#edit-form").submit(function (e) {
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
+
+            var form = $(this);
+            var actionUrl = form.attr('action');
+
+            $.ajax({
+                type: "POST",
+                url: actionUrl,
+                data: form.serialize(), // serializes the form's elements.
+                success: function (data) {
+                    if (data != true) {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'عملیات نا موفق',
+                            text: data,
+                        })
+                    }
+                    else {
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'عملیات موفق',
+                            text: 'عملیات با موفقیت انجام شد',
+                        });
+                        setTimeout(window.location.reload(), 3000);
+                    }
+                },
+                error: function () {
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'عملیات نا موفق...',
+                    })
+                },
+            });
+
+        });
+
+    </script>
+}

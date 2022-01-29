@@ -69,8 +69,14 @@ namespace BargheNovin.Web.Mapping
             
             CreateMap<PortfolioCategory, CategoryViewModel>()
                 .ReverseMap();
+            
+            CreateMap<PortfolioCategory, InputCategoryViewModel>()
+                .ReverseMap();
 
             CreateMap<ListPageViewModel<Portfolio>, ListPageViewModel<MainPagePortfolioViewModel>>();
+
+            CreateMap<Portfolio, InputPortfolioViewModel>()
+                .ReverseMap();
         }
     }
 }

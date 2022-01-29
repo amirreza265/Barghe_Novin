@@ -16,6 +16,7 @@ namespace BargheNovin.Core.Services.Interface
         List<Portfolio> GetPortfolioWhere(string nameFilter = "", string categoryFilter = "", bool? showInMainPage = null);
 
         List<Tuple<int, string>> GetGategories();
+        List<PortfolioCategory> GetPortfolioCategories();
 
         /// <summary>
         /// replce image and return new image name
@@ -32,5 +33,10 @@ namespace BargheNovin.Core.Services.Interface
         Portfolio GetPortfolioBy(int id, bool includeCategory = true);
 
         void DeletePortfolio(int id);
+
+        PortfolioCategory GetPortfolioCategoryBy(int id);
+        PortfolioCategory GetPortfolioCategoryBy(string filterName);
+
+        E Create<E>(E entity, bool save = true);
     }
 }

@@ -134,5 +134,29 @@ namespace BargheNovin.Core.Services
             por.IsDeleted = true;
             Update(por);
         }
+
+        public List<PortfolioCategory> GetPortfolioCategories()
+        {
+            return _context.PortfolioCategories.ToList();
+        }
+
+        public PortfolioCategory GetPortfolioCategoryBy(int id)
+        {
+            return _context.PortfolioCategories.FirstOrDefault(pc => pc.CategoryId == id);
+        }
+        public PortfolioCategory GetPortfolioCategoryBy(string filterName)
+        {
+            return _context.PortfolioCategories.FirstOrDefault(pc => pc.FilterName == filterName);
+        }
+
+        public E Create<E>(E entity, bool save = true)
+        {
+            _context.Add(entity);
+
+            if (save)
+                _context.SaveChanges();
+
+            return entity;
+        }
     }
 }
