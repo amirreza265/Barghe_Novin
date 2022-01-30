@@ -94,7 +94,7 @@ namespace BargheNovin.Core.Services
                 .SingleOrDefault(p => p.PageName == pageName);
         }
 
-        public List<PageContent> GetPageContents(List<string> names = null)
+        public List<PageContent> GetPageContents(params string[] names)
         {
             IQueryable<PageContent> pages = _context.PageContents
                 .Include(p => p.Contents)
@@ -102,7 +102,7 @@ namespace BargheNovin.Core.Services
                 .Include(p => p.Images)
                 .AsSplitQuery();
 
-            if(names?.Count > 0)
+            if(names.Count() > 0)
             {
                 pages = pages.Where(p => names.Contains(p.PageName));
             }

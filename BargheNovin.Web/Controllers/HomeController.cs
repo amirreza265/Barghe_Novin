@@ -31,7 +31,7 @@ namespace BargheNovin.Web.Controllers
 
         public IActionResult Index()
         {
-            var pages = _pageService.GetPageContents(new List<string>() { "Services", "for-work", "work-samples" });
+            var pages = _pageService.GetPageContents("Services", "for-work", "work-samples");
             var pagesVM = _mapper.Map<List<PageViewModel>>(pages);
 
             var portfolio = _portfolioService.GetPortfolioWhere(showInMainPage:true);
@@ -69,6 +69,17 @@ namespace BargheNovin.Web.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+
+        [Route("/portfolio")]
+        public IActionResult Portfolio()
+        {
+            var portfolio = _portfolioService.GetPortfolioWhere();
+            var pvm = _mapper.Map<List<MainPagePortfolioViewModel>>(portfolio);
+            var page = _pageService.GetPageContents("work-samples")[0];
+            var pageVM = _mapper.Map<PageViewModel>(page);
+            ViewData["WorkSamplesDescription"] =  pageVM.GetContent("WorkSamplesDescription");
+            return View(pvm);
         }
     }
 }

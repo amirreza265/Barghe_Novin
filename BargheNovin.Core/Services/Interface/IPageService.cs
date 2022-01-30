@@ -19,7 +19,7 @@ namespace BargheNovin.Core.Services.Interface
 
         PageContent GetPageContentBy(string pageName);
 
-        List<PageContent> GetPageContents(List<string> names = null);
+        List<PageContent> GetPageContents(params string[] names);
 
         /// <summary>
         /// list of pages names

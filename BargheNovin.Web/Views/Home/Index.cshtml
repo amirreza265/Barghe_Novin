@@ -154,46 +154,8 @@
 </section><!--main-section alabaster-end-->
 
 
-
-<section class="main-section paddind" id="Portfolio">
-    <!--main-section-start-->
-    <div class="container">
-        @{ 
-            var categories = portfolio.Select(p => p.Category).Distinct();
-        }
-        <h2>نمونه کار</h2>
-        <h6>@Html.Raw(wsPageVm.GetContent("WorkSamplesDescription"))</h6>
-        <div class="portfolioFilter">
-            <ul class="Portfolio-nav wow fadeIn delay-02s">
-                <li><a href="#" data-filter="*" class="current">همه</a></li>
-                @foreach (var cat in categories)
-                {
-                    <li><a href="#" data-filter=".@cat.FilterName">@cat.Name</a></li>
-                }
-            </ul>
-        </div>
-
-    </div>
-    <div class="portfolioContainer wow fadeInUp delay-04s">
-        @foreach (var port in portfolio)
-        {
-            <div class=" Portfolio-box @port.Category.FilterName">
-                <a href="#"><img src="/main/img/portfolio/@port.ImageName" alt=""></a>
-                <h3>
-                    @port.Name
-                </h3>
-                <p>@port.Category.Name</p>
-            </div>
-        }
-        @*<div class=" Portfolio-box amir">
-            <a href="#"><img src="/main/img/Portfolio-pic5.jpg" alt=""></a>
-            <h3>
-                جدید
-            </h3>
-            <p>نام تجاری</p>
-        </div>*@
-    </div>
-</section><!--main-section-end-->
+@{ViewData["WorkSamplesDescription"] = (wsPageVm.GetContent("WorkSamplesDescription"));}
+<partial name="_PortfolioView" model="@ViewData["portfolio"]" />
 
 
 <section class="main-section client-part" id="client">
