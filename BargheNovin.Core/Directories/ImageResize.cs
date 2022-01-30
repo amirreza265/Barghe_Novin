@@ -55,5 +55,26 @@ namespace BargheNovin.Core.Directories
                 image.Save(imgPath); // Automatic encoder selected based on extension.
             }
         }
+
+        public static void Resize(string imageName, int maxHeight = 360, params string[] paths)
+        {
+            var root = Path.Combine(paths);
+            var imgPath = Path.Combine(Directory.GetCurrentDirectory(),
+                    root,
+                    imageName);
+
+            using (Image<Rgba32> image = (Image<Rgba32>)Image.Load(imgPath))
+            {
+                image.Mutate(x => {
+                    var imageWidth = maxHeight * x.GetCurrentSize().Width / x.GetCurrentSize().Height;
+                    x.Resize(imageWidth, maxHeight)
+                      .Crop(
+                      (imageWidth > x.GetCurrentSize().Width) ? x.GetCurrentSize().Width : imageWidth,
+                      (maxHeight > x.GetCurrentSize().Height) ? x.GetCurrentSize().Height : maxHeight);
+                     });
+
+                image.Save(imgPath); // Automatic encoder selected based on extension.
+            }
+        }
     }
 }
