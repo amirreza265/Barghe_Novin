@@ -10,6 +10,8 @@ namespace BargheNovin.Core.DTOs.Content
     {
         public string ContentName { get; set; }
         public string Content { get; set; }
+
+#nullable enable
         public string? ContentTitle { get; set; }
     }
 }

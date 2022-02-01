@@ -1,11 +1,11 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "صفحه اصلی";
     var pages = ViewData["Pages"] as List<PageViewModel>;
     var portfolio = ViewData["portfolio"] as List<MainPagePortfolioViewModel>;
     PageViewModel sPageVm = pages[0];
     PageViewModel fwPageVm = pages[0];
     PageViewModel wsPageVm = pages[0];
+    PageViewModel cPageVm = pages[0];
     foreach (var p in pages)
     {
         switch (p.PageName)
@@ -19,36 +19,39 @@
             case "work-samples":
                 wsPageVm = p;
                 break;
+            case "customers":
+                cPageVm = p;
+                break;
         }
     }
 }
 
 @section main_image  {
-    <div style="overflow:hidden;">
-        <header class="header" id="header">
-            <!--header-start-->
-            <div class="container">
-                <figure class="logo animated fadeInDown delay-07s">
-                    <a href="#"><img src="/main/img/@ViewData["main-logo"]" alt=""></a>
-                </figure>
-                <h1 class="animated fadeInDown delay-07s">
-                    به برق نوین خوش امدید
-                </h1>
-                <ul class="we-create animated fadeInUp delay-1s">
-                    <li>دارای پروانه نظارت برق نظام مهندسی</li>
-                </ul>
-                <div class="btn btn-group">
-                    <a class="link animated fadeInUp delay-1s" href="/login">
-                        ورود
-                    </a>
-                    <a class="link animated fadeInUp delay-1s" href="/register">
-                        ثبت نام
-                    </a>
-                </div>
-
+<div style="overflow:hidden;">
+    <header class="header" id="header">
+        <!--header-start-->
+        <div class="container">
+            <figure class="logo animated fadeInDown delay-07s">
+                <a href="#"><img src="/main/img/@ViewData["main-logo"]" alt=""></a>
+            </figure>
+            <h1 class="animated fadeInDown delay-07s">
+                به برق نوین خوش امدید
+            </h1>
+            <ul class="we-create animated fadeInUp delay-1s">
+                <li>دارای پروانه نظارت برق نظام مهندسی</li>
+            </ul>
+            <div class="btn btn-group">
+                <a class="link animated fadeInUp delay-1s" href="/login">
+                    ورود
+                </a>
+                <a class="link animated fadeInUp delay-1s" href="/register">
+                    ثبت نام
+                </a>
             </div>
-        </header><!--header-end-->
-    </div>
+
+        </div>
+    </header><!--header-end-->
+</div>
 }
 
 
@@ -152,9 +155,9 @@
         </div>
     </div>
 </section><!--main-section alabaster-end-->
-
-
-@{ViewData["WorkSamplesDescription"] = (wsPageVm.GetContent("WorkSamplesDescription"));}
+@{
+    ViewData["WorkSamplesDescription"] = (wsPageVm.GetContent("WorkSamplesDescription"));
+}
 <partial name="_PortfolioView" model="@ViewData["portfolio"]" />
 
 
@@ -164,7 +167,9 @@
         <b class="quote-left wow fadeInDown delay-03"><i class="fa-quote-left"></i></b>
         <div class="row">
             <div class="col-lg-12">
-                <p class="client-part-haead wow fadeInDown delay-05">لورم ایپسوم متن ساختگی با تولید سادگی نامفهوم از صنعت چاپ و با استفاده از طراحان گرافیک است. چاپگرها و متون بلکه روزنامه و مجله در ستون و سطرآنچنان که لازم است و برای شرایط فعلی تکنولوژی مورد نیاز و کاربردهای متنوع با هدف بهبود ابزارهای کاربردی می باشد</p>
+                <p class="client-part-haead wow fadeInDown delay-05">
+                    @(Html.Raw(cPageVm.GetContent("CustommersDescription")))
+                </p>
             </div>
         </div>
         <ul class="client wow fadeIn delay-05s">
@@ -181,18 +186,6 @@
         </ul>
     </div>
 </section><!--main-section client-part-end-->
-<div class="c-logo-part">
-    <!--c-logo-part-start-->
-    <div class="container">
-        <ul>
-            <li><a href="#"><img src="/main/img/c-liogo1.png" alt=""></a></li>
-            <li><a href="#"><img src="/main/img/c-liogo2.png" alt=""></a></li>
-            <li><a href="#"><img src="/main/img/c-liogo3.png" alt=""></a></li>
-            <li><a href="#"><img src="/main/img/c-liogo4.png" alt=""></a></li>
-            <li><a href="#"><img src="/main/img/c-liogo5.png" alt=""></a></li>
-        </ul>
-    </div>
-</div><!--c-logo-part-end-->
 <section class="main-section team" id="team">
     <!--main-section team-start-->
     <div class="container">
@@ -203,12 +196,6 @@
                 <div class="team-leader wow fadeInDown delay-03s">
                     <div class="team-leader-shadow"><a href="#"></a></div>
                     <img src="/main/img/team-leader-pic1.jpg" alt="">
-                    <ul>
-                        <li><a href="#" class="fa-twitter"></a></li>
-                        <li><a href="#" class="fa-facebook"></a></li>
-                        <li><a href="#" class="fa-pinterest"></a></li>
-                        <li><a href="#" class="fa-google-plus"></a></li>
-                    </ul>
                 </div>
                 <h3 class="wow fadeInDown delay-03s">لوریم ایپسوم</h3>
                 <span class="wow fadeInDown delay-03s">

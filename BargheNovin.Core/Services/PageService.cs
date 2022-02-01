@@ -29,7 +29,7 @@ namespace BargheNovin.Core.Services
             {
                 pageId = GetPageIdBy(pageName);
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 pageId = AddPage(pageName).PageId;
             }

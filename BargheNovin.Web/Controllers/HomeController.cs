@@ -31,7 +31,7 @@ namespace BargheNovin.Web.Controllers
 
         public IActionResult Index()
         {
-            var pages = _pageService.GetPageContents("Services", "for-work", "work-samples");
+            var pages = _pageService.GetPageContents("Services", "for-work", "work-samples", "customers");
             var pagesVM = _mapper.Map<List<PageViewModel>>(pages);
 
             var portfolio = _portfolioService.GetPortfolioWhere(showInMainPage:true);
@@ -56,13 +56,13 @@ namespace BargheNovin.Web.Controllers
 
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult ContactUs(MessageViewModel message)
+        public IActionResult ContactUs(MessageViewModel model)
         {
             if (!ModelState.IsValid)
                 return Json(ModelState);
 
-            message.Email += "amireaaaaasass";
-            return Json(message);
+            model.Email += "amireaaaaasass";
+            return Json(model);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

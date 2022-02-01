@@ -17,8 +17,10 @@ namespace BargheNovin.DataLayer.Entities.PageContent
         public int PageId { get; set; }
         public string ContentHtml { get; set; }
 
+#nullable enable
         [MaxLength(400)]
         public string? ContentTitle { get; set; }
+#nullable disable        
 
         public ContentName ContentName { get; set; }
 
