@@ -81,5 +81,16 @@ namespace BargheNovin.Web.Controllers
             ViewData["WorkSamplesDescription"] =  pageVM.GetContent("WorkSamplesDescription");
             return View(pvm);
         }
+
+        [Route("/show-portfolio/{id}")]
+        public IActionResult ShowPortfolio(int id)
+        {
+            var port = _portfolioService.GetPortfolioBy(id);
+            if (port == null)
+                return NotFound();
+
+            var portvm = _mapper.Map<ShowPortfolioViewModel>(port);
+            return View(portvm);
+        }
     }
 }

@@ -122,10 +122,10 @@ namespace BargheNovin.Core.Services
             IQueryable<Portfolio> result = _context.Portfolio;
 
             if (includeCategory)
-                result.Include(p => p.Category)
+                result = result.Include(p => p.Category)
                     .AsSplitQuery();
 
-            return result.SingleOrDefault(p => p.PortfolioId==id);
+            return result.SingleOrDefault(p => p.PortfolioId == id);
         }
 
         public void DeletePortfolio(int id)

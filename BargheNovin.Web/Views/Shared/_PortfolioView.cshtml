@@ -27,7 +27,9 @@
         @foreach (var port in Model)
         {
             <div class=" Portfolio-box @port.Category.FilterName">
-                <a href="#"><img src="/main/img/portfolio/@port.ImageName" alt=""></a>
+                <a asp-controller="home"
+                   asp-action="showportfolio"
+                   asp-route-id="@port.PortfolioId" ><img src="/main/img/portfolio/@port.ImageName" alt=""></a>
                 <h3>
                     @port.Name
                 </h3>
