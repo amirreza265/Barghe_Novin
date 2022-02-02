@@ -13,6 +13,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace BargheNovin.Web
 {
@@ -30,14 +31,27 @@ namespace BargheNovin.Web
         {
             services.AddAutoMapper(typeof(Startup));
             services.AddControllersWithViews();
-            services.AddDbContext<BargheNovinDBContext>(option => {
+            services.AddDbContext<BargheNovinDBContext>(option =>
+            {
                 option.UseSqlServer(Configuration.GetConnectionString("BargheNovin"));
             });
+
+            #region Authentication 
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+                .AddCookie(option =>
+                {
+                    option.LoginPath = "/login";
+                    option.LogoutPath = "/";
+                    option.AccessDeniedPath = "/AccessDenied";
+                    option.ExpireTimeSpan = TimeSpan.FromDays(30);
+                });
+            #endregion
 
             #region Ioc
             services.AddScoped<ILogoService, LogoService>();
             services.AddScoped<IPageService, PageService>();
             services.AddScoped<IPortfolioService, PortfolioService>();
+            services.AddScoped<IUserService, UserService>();
             #endregion
         }
 
@@ -58,7 +72,7 @@ namespace BargheNovin.Web
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>

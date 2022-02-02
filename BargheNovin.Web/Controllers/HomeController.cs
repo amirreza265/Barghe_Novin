@@ -11,6 +11,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using Toplearn.Core.Security;
 
 namespace BargheNovin.Web.Controllers
 {
@@ -92,5 +93,11 @@ namespace BargheNovin.Web.Controllers
             var portvm = _mapper.Map<ShowPortfolioViewModel>(port);
             return View(portvm);
         }
+
+        //[Route("/hash/{value}")]
+        //public IActionResult GetHash(string value)
+        //{
+        //    return Json(PasswordHelper.EncodePasswordMd5(value));
+        //}
     }
 }

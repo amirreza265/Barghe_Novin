@@ -1,5 +1,6 @@
 ﻿using BargheNovin.DataLayer.Entities;
 using BargheNovin.DataLayer.Entities.PageContent;
+using BargheNovin.DataLayer.Entities.User;
 using BargheNovin.DataLayer.Entities.WorkSamples;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -32,6 +33,10 @@ namespace BargheNovin.DataLayer.DataBaseContext
         public DbSet<PortfolioCategory> PortfolioCategories { get; set; }
         #endregion
 
+        #region User
+        public DbSet<User> Users { get; set; }
+        #endregion
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ContentName>()
@@ -55,6 +60,14 @@ namespace BargheNovin.DataLayer.DataBaseContext
 
             modelBuilder.Entity<PortfolioCategory>()
                 .HasIndex(pc => pc.FilterName)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u =>u.UserName)
+                .IsUnique();
+
+            modelBuilder.Entity<User>()
+                .HasIndex(u =>u.Email)
                 .IsUnique();
 
             base.OnModelCreating(modelBuilder);
