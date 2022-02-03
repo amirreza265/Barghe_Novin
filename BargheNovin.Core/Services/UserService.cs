@@ -42,6 +42,13 @@ namespace BargheNovin.Core.Services
                 SingleOrDefault(u => u.UserName == username);
         }
 
+        public User LoginUser(string usernameOrEmail, string password)
+        {
+            var email = TextEdit.FomatEmail(usernameOrEmail);
+            password = PasswordHelper.EncodePasswordMd5(password);
+            return _context.Users.SingleOrDefault(u => u.Password == password && (usernameOrEmail == u.UserName || email == u.Email));
+        }
+
         public User RegisterUser(User user)
         {
             user.Email = TextEdit.FomatEmail(user.Email);

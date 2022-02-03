@@ -1,4 +1,5 @@
-﻿
+﻿@using BargheNovin.Web.Models.Users
+@model LoginViewModel
 @{
     ViewData["Title"] = "Login";
     Layout = "~/Views/Shared/_AccountLayout.cshtml";
@@ -6,31 +7,38 @@
 
 <div class="login-box">
     <div class="login-logo">
-        <a href="../../index2.html"><b>ورود به سایت</b></a>
+        <a href="/"><b>ورود به سایت</b></a>
     </div>
     <!-- /.login-logo -->
     <div class="card">
         <div class="card-body login-card-body">
             <p class="login-box-msg">فرم زیر را تکمیل کنید و ورود بزنید</p>
 
-            <form action="../../index2.html" method="post">
+            <form asp-controller="account" asp-action="login"
+                  id="login-form" method="post">
                 <div class="input-group mb-3">
-                    <input type="email" class="form-control" placeholder="ایمیل">
+                    <input asp-for="UserIndex" class="form-control" placeholder="ایمیل یا نام کاربری">
                     <div class="input-group-append">
                         <span class="fa fa-envelope input-group-text"></span>
                     </div>
                 </div>
+                <p>
+                    <span class="text-danger" asp-validation-for="UserIndex"></span>
+                </p>
                 <div class="input-group mb-3">
-                    <input type="password" class="form-control" placeholder="رمز عبور">
+                    <input asp-for="Password" class="form-control" placeholder="رمز عبور">
                     <div class="input-group-append">
                         <span class="fa fa-lock input-group-text"></span>
                     </div>
                 </div>
+                <p>
+                    <span class="text-danger" asp-validation-for="Password"></span>
+                </p>
                 <div class="row">
                     <div class="col-8">
                         <div class="checkbox icheck">
                             <label>
-                                <input type="checkbox"> یاد آوری من
+                                <input asp-for="RememberMe" type="checkbox"> یاد آوری من
                             </label>
                         </div>
                     </div>
@@ -42,11 +50,9 @@
                 </div>
             </form>
 
+            <div asp-validation-summary="All" class="input-group mb-3">
+            </div>
             <div class="social-auth-links text-center mb-3">
-                <p>- OR -</p>
-                <a href="#" class="btn btn-block btn-primary">
-                    <i class="fa fa-facebook mr-2"></i> ورود با اکانت فیسوبک
-                </a>
                 <a href="#" class="btn btn-block btn-danger">
                     <i class="fa fa-google-plus mr-2"></i> ورود با اکانت گوگل
                 </a>
@@ -64,3 +70,49 @@
     </div>
 </div>
 
+@section scripts{
+<partial name="_ValidationScriptsPartial" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+     $('#login-form').submit(function(e) {
+
+        e.preventDefault(); // avoid to execute the actual submit of the form.
+
+        var form = $(this);
+        var actionUrl = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: actionUrl,
+            data: form.serialize(), // serializes the form's elements.
+            success: function(data)
+            {
+              if(data == true){
+                  Swal.fire({
+                        icon: 'success',
+                        title: 'ورورد انجام شد',
+                        showCancelButton: true,
+                        showCloseButton: true,
+                        confirmButtonText: 'بازگشت به صفحه ',
+                        cancelButtonText: 'بستن',
+                      }).then((result) => {
+                          if (result.isConfirmed){
+                             window.location.replace('@((ViewData["ReturnUrl"] == null)?"/":ViewData["ReturnUrl"])');
+                          }else{
+                             window.location.replace('@Url.Action("index", "home")');
+                          }
+                      });
+              }else{
+                  Swal.fire({
+                      icon: 'error',
+                      title: 'ورود انجام نشد',
+                      text: data,
+                      showConfirmButton: false,
+                    });
+              }
+            }
+        });
+
+    });
+</script>
+}

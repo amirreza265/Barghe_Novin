@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BargheNovin.Core.Attributes;
 using BargheNovin.Core.Directories;
 using BargheNovin.Core.DTOs;
 using BargheNovin.Core.DTOs.Portfolio;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 namespace BargheNovin.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AdminPanel()]
     public class PortfolioController : Controller
     {
         private readonly IPortfolioService _portfolioService;

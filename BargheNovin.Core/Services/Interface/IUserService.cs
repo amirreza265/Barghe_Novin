@@ -17,5 +17,7 @@ namespace BargheNovin.Core.Services.Interface
         E Add<E>(E entity, bool save = true);
 
         User RegisterUser(User user);
+
+        User LoginUser(string usernameOrEmail, string password);
     }
 }

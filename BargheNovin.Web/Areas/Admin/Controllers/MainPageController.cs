@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using BargheNovin.Core.Attributes;
 using BargheNovin.Core.Directories;
 using BargheNovin.Core.DTOs.Content;
 using BargheNovin.Core.Services.Interface;
@@ -14,6 +15,7 @@ using System.Threading.Tasks;
 namespace BargheNovin.Web.Areas.Admin.Controllers
 {
     [Area("Admin")]
+    [AdminPanel()]
     public class MainPageController : Controller
     {
         private readonly ILogoService _logoService;

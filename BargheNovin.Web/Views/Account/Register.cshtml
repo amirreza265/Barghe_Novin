@@ -99,18 +99,21 @@
               {
                 if(data == true){
                     Swal.fire({
-                        position: 'top-end',
                         icon: 'success',
                         title: 'ثبت نام انجام شد',
                         showCancelButton: true,
-                        showCloseButton: true
+                        showCloseButton: true,
                         confirmButtonText: 'ورورد',
                         cancelButtonText: 'صفحه اصلی',
                       }).then((result) => {
+                          if (result.isConfirmed){
+                             window.location.replace('@Url.Action("login", "account")');
+                          }else{
+                             window.location.replace('@Url.Action("index", "home")');
+                          }
                       });
                 }else{
                        Swal.fire({
-                        position: 'top-end',
                         icon: 'error',
                         title: 'ثبت نام انجام نشد',
                         text: data,

@@ -42,7 +42,7 @@ namespace BargheNovin.Web
                 {
                     option.LoginPath = "/login";
                     option.LogoutPath = "/";
-                    option.AccessDeniedPath = "/AccessDenied";
+                    option.AccessDeniedPath = "/login";
                     option.ExpireTimeSpan = TimeSpan.FromDays(30);
                 });
             #endregion
