@@ -39,6 +39,7 @@ namespace BargheNovin.DataLayer.DataBaseContext
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            #region Unique Columns
             modelBuilder.Entity<ContentName>()
                 .HasIndex(c => c.Name)
                 .IsUnique();
@@ -46,7 +47,7 @@ namespace BargheNovin.DataLayer.DataBaseContext
             modelBuilder.Entity<PageContent>()
                 .HasIndex(c => c.PageName)
                 .IsUnique();
-            
+
             modelBuilder.Entity<PageContent>()
                 .HasIndex(c => c.DisplayName)
                 .IsUnique();
@@ -63,12 +64,16 @@ namespace BargheNovin.DataLayer.DataBaseContext
                 .IsUnique();
 
             modelBuilder.Entity<User>()
-                .HasIndex(u =>u.UserName)
+                .HasIndex(u => u.UserName)
                 .IsUnique();
 
             modelBuilder.Entity<User>()
-                .HasIndex(u =>u.Email)
+                .HasIndex(u => u.Email)
                 .IsUnique();
+            #endregion
+
+            modelBuilder.Entity<User>()
+                .HasQueryFilter(u => !u.IsDeleted);
 
             base.OnModelCreating(modelBuilder);
         }

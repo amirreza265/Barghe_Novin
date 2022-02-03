@@ -3,8 +3,10 @@ using BargheNovin.Core.DTOs;
 using BargheNovin.Core.DTOs.Content;
 using BargheNovin.Core.DTOs.Portfolio;
 using BargheNovin.DataLayer.Entities.PageContent;
+using BargheNovin.DataLayer.Entities.User;
 using BargheNovin.DataLayer.Entities.WorkSamples;
 using BargheNovin.Web.Areas.Admin.Models.PagiesContent;
+using BargheNovin.Web.Models.Users;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -79,6 +81,9 @@ namespace BargheNovin.Web.Mapping
             CreateMap<ListPageViewModel<Portfolio>, ListPageViewModel<MainPagePortfolioViewModel>>();
 
             CreateMap<Portfolio, InputPortfolioViewModel>()
+                .ReverseMap();
+
+            CreateMap<User, RegisterViewModel>()
                 .ReverseMap();
         }
     }

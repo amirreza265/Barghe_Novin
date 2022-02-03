@@ -1,4 +1,5 @@
-﻿using BargheNovin.Core.Services.Interface;
+﻿using AutoMapper;
+using BargheNovin.Core.Services.Interface;
 using BargheNovin.DataLayer.Entities.User;
 using BargheNovin.Web.Models.Users;
 using Microsoft.AspNetCore.Identity;
@@ -13,10 +14,12 @@ namespace BargheNovin.Web.Controllers
     public class AccountController : Controller
     {
         private readonly IUserService _userService;
+        private readonly IMapper _mapper;
 
-        public AccountController(IUserService userService)
+        public AccountController(IUserService userService, IMapper mapper)
         {
             _userService = userService;
+            _mapper = mapper;
         }
 
         public IActionResult Index()
@@ -28,25 +31,25 @@ namespace BargheNovin.Web.Controllers
         [Route("/register")]
         public IActionResult Register()
         {
-            return View();
+            return View(new RegisterViewModel());
         }
 
-        public async Task<IActionResult> Register(RegisterViewModel model)
+        [HttpPost]
+        [Route("/register")]
+        public IActionResult Register(RegisterViewModel model)
         {
             if (!ModelState.IsValid)
             {
-                return View(model);
+                return ModelErrors;
             }
-
-            if (_userService.Any(u => u.UserName == model.UserName || u.Email == model.Email))
+            var user = _mapper.Map<User>(model);
+            user = _userService.RegisterUser(user);
+            if (user == null)
             {
                 ModelState.AddModelError("", "کاربری با این نام کاربری یا ایمیل موجود است");
-                return View(model);
+                return ModelErrors;
             }
-
-
-
-            return View(model);
+            return Json(true);
         }
         #endregion
 
@@ -57,5 +60,10 @@ namespace BargheNovin.Web.Controllers
             return View();
         }
         #endregion
+
+        private JsonResult ModelErrors
+        {
+            get => Json(ModelState.Values.SelectMany(u => u.Errors.Select(e => e.ErrorMessage)));
+        }
     }
 }

@@ -21,5 +21,10 @@ namespace BargheNovin.DataLayer.Entities.User
         [MaxLength(150)]
         [Required]
         public string Email { get; set; }
+
+        public DateTime CreateDate { get; set; }
+        public DateTime? RemoveDate { get; set; }
+
+        public bool IsDeleted { get; set; }
     }
 }

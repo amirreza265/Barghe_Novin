@@ -14,6 +14,8 @@ namespace BargheNovin.Core.Services.Interface
 
         bool Any(Expression<Func<User, bool>> predicate);
 
-        int Add<E>(E entity);
+        E Add<E>(E entity, bool save = true);
+
+        User RegisterUser(User user);
     }
 }

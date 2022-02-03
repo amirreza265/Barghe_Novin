@@ -16,31 +16,46 @@
         <div class="card-body register-card-body">
             <p class="login-box-msg">ثبت نام کاربر جدید</p>
 
-            <form asp-controller="account"
+            <form asp-controller="account" id="register-form"
                   asp-action="register" method="post">
                 <div class="input-group mb-3">
                     <input asp-for="UserName" class="form-control" placeholder="نام کاربری">
                     <div class="input-group-append">
-                        <span asp-validation-for="UserName" class="fa fa-user input-group-text"></span>
+                        <span class="fa fa-user input-group-text"></span>
                     </div>
                 </div>
+                <p>
+                    <span class="text-danger" asp-validation-for="UserName"></span>
+                </p>
                 <div class="input-group mb-3">
                     <input asp-for="Email" class="form-control" placeholder="ایمیل">
                     <div class="input-group-append">
                         <span class="fa fa-envelope input-group-text"></span>
                     </div>
                 </div>
+                <p>
+                    <span class="text-danger" asp-validation-for="Email"></span>
+                </p>
                 <div class="input-group mb-3">
                     <input asp-for="Password" class="form-control" placeholder="رمز عبور">
                     <div class="input-group-append">
                         <span class="fa fa-lock input-group-text"></span>
                     </div>
                 </div>
+                <p>
+                    <span class="text-danger" asp-validation-for="Password"></span>
+                </p>
                 <div class="input-group mb-3">
                     <input asp-for=RePassword class="form-control" placeholder="تکرار رمز عبور">
                     <div class="input-group-append">
                         <span class="fa fa-lock input-group-text"></span>
                     </div>
+                </div>
+                <p>
+                    <span class="text-danger" asp-validation-for="RePassword"></span>
+                </p>
+
+                <div asp-validation-summary="All" class="input-group mb-3">
                 </div>
                 <div class="row">
                     <!-- /.col -->
@@ -63,3 +78,48 @@
         <!-- /.form-box -->
     </div><!-- /.card -->
 </div>
+
+
+@section scripts{
+<partial name="_ValidationScriptsPartial" />
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+       $('#register-form').submit(function(e) {
+
+          e.preventDefault(); // avoid to execute the actual submit of the form.
+
+          var form = $(this);
+          var actionUrl = form.attr('action');
+
+          $.ajax({
+              type: "POST",
+              url: actionUrl,
+              data: form.serialize(), // serializes the form's elements.
+              success: function(data)
+              {
+                if(data == true){
+                    Swal.fire({
+                        position: 'top-end',
+                        icon: 'success',
+                        title: 'ثبت نام انجام شد',
+                        showCancelButton: true,
+                        showCloseButton: true
+                        confirmButtonText: 'ورورد',
+                        cancelButtonText: 'صفحه اصلی',
+                      }).then((result) => {
+                      });
+                }else{
+                       Swal.fire({
+                        position: 'top-end',
+                        icon: 'error',
+                        title: 'ثبت نام انجام نشد',
+                        text: data,
+                        showConfirmButton: false,
+                      });
+                }
+              }
+          });
+
+      });
+</script>
+}
