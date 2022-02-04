@@ -125,6 +125,31 @@
                         </li>
                     </ul>
                 </li>
+
+                @{
+                    indexes = new List<int>() { -6,-7,-8};
+                    active = (indexes.Contains(pageindex));
+                }
+                <li class="nav-item has-treeview @(active?"menu-open":"")">
+                    <a href="#" class="nav-link  @(active?"active":"")">
+                        <i class="nav-icon fa fa-users"></i>
+                        <p>
+                            تیم
+                            <i class="right fa fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview">
+                        <li class="nav-item">
+                            <a asp-area="admin"
+                               asp-controller="ourteam"
+                               asp-action="index"
+                               class="nav-link  @((pageindex == -6)?"active":"")">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>لیست اعضا</p>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
             </ul>
         </nav>
         <!-- /.sidebar-menu -->

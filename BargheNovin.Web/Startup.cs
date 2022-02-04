@@ -52,6 +52,7 @@ namespace BargheNovin.Web
             services.AddScoped<IPageService, PageService>();
             services.AddScoped<IPortfolioService, PortfolioService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ITeamService, TeamService>();
             #endregion
         }
 

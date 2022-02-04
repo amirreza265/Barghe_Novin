@@ -6,6 +6,7 @@ using BargheNovin.DataLayer.Entities.PageContent;
 using BargheNovin.DataLayer.Entities.User;
 using BargheNovin.DataLayer.Entities.WorkSamples;
 using BargheNovin.Web.Areas.Admin.Models.PagiesContent;
+using BargheNovin.Web.Areas.Admin.Models.User;
 using BargheNovin.Web.Models.Users;
 using System;
 using System.Collections.Generic;
@@ -85,6 +86,10 @@ namespace BargheNovin.Web.Mapping
 
             CreateMap<User, RegisterViewModel>()
                 .ReverseMap();
+
+            CreateMap<TeamMember, TeamMemberViewModel>()
+                .ForMember(tmvm => tmvm.Username, option => option.MapFrom(tm => tm.User.UserName))
+                .ReverseMap(); 
         }
     }
 }

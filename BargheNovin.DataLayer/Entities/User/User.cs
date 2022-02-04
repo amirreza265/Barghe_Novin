@@ -26,5 +26,8 @@ namespace BargheNovin.DataLayer.Entities.User
         public DateTime? RemoveDate { get; set; }
 
         public bool IsDeleted { get; set; }
+
+
+        public TeamMember TeamMember { get; set; }
     }
 }

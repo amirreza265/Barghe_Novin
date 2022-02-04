@@ -35,6 +35,7 @@ namespace BargheNovin.DataLayer.DataBaseContext
 
         #region User
         public DbSet<User> Users { get; set; }
+        public DbSet<TeamMember> TeamMembers { get; set; }
         #endregion
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -74,6 +75,9 @@ namespace BargheNovin.DataLayer.DataBaseContext
 
             modelBuilder.Entity<User>()
                 .HasQueryFilter(u => !u.IsDeleted);
+            
+            modelBuilder.Entity<TeamMember>()
+                .HasQueryFilter(t => !t.IsFired);
 
             base.OnModelCreating(modelBuilder);
         }
