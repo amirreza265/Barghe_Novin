@@ -21,27 +21,39 @@ namespace BargheNovin.Core.Services
 
         public void FireAMember(TeamMember teamMember, bool isFired = true, bool save = true)
         {
-            throw new NotImplementedException();
+            teamMember.IsFired = isFired;
+
+            if (save)
+                _context.SaveChanges();
         }
 
         public void FireAMember(string username, bool isFired = true, bool save = true)
         {
-            throw new NotImplementedException();
+            var member = GetTeamMember(username);
+            FireAMember(member, isFired, save);
         }
 
-        public void FireAMember(int id, bool isFired = true, bool save = true)
+        public void FireAMember(int memberId, bool isFired = true, bool save = true)
         {
-            throw new NotImplementedException();
+            var member = GetTeamMember(memberId, false);
+            FireAMember(member, isFired,save);
         }
 
-        public TeamMember GetTeamMember(int id, bool includeUser = true)
+        public TeamMember GetTeamMember(int memberId, bool includeUser = true)
         {
-            throw new NotImplementedException();
+            IQueryable<TeamMember> members = _context.TeamMembers;
+
+            if (includeUser)
+                members = members.Include(m => m.User);
+
+            return members.SingleOrDefault(m => m.MemberId == memberId);
         }
 
         public TeamMember GetTeamMember(string username)
         {
-            throw new NotImplementedException();
+            return _context.TeamMembers
+                .Include(t => t.User)
+                .SingleOrDefault(tm => tm.User.UserName == username); 
         }
 
         public List<TeamMember> GetTeamMembersWhere(int? pageId = null, int? take = null, string username = "", string displayName = "")

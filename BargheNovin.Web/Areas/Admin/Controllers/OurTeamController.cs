@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BargheNovin.Core.Attributes;
+using BargheNovin.Core.DTOs.Team;
 using BargheNovin.Core.Services.Interface;
 using BargheNovin.Web.Areas.Admin.Models.User;
 using Microsoft.AspNetCore.Mvc;
@@ -34,7 +35,15 @@ namespace BargheNovin.Web.Areas.Admin.Controllers
             if (!ModelState.IsValid)
                 return ModelErrors;
 
+            var member = _teamService.GetTeamMember(model.MemberId);
+            if (member == null)
+            {
+                ModelState.AddModelError("", "عضو یافت نشد");
+                return ModelErrors;
+            }
 
+            member.DisplayName = model.DisplayName;
+            _teamService.Update(member);
 
             return Json(true);
         }

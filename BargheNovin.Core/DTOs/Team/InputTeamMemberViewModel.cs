@@ -13,5 +13,7 @@ namespace BargheNovin.Core.DTOs.Team
         [Display(Name ="نام نمایشی")]
         [MaxLength(100, ErrorMessage ="حد اکثر تعداد کاراکتر مجاز برای {0} می تواند {1} کاراکتر باشد")]
         public string DisplayName { get; set; }
+
+        public int MemberId { get; set; }
     }
 }
