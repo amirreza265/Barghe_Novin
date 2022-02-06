@@ -13,10 +13,25 @@ namespace BargheNovin.Core.Services
     public class TeamService : ITeamService
     {
         private readonly BargheNovinDBContext _context;
+        private readonly IUserService _userService;
 
-        public TeamService(BargheNovinDBContext context)
+        public TeamService(BargheNovinDBContext context, IUserService userService)
         {
             _context = context;
+            _userService = userService;
+        }
+
+        public TeamMember CreateTeamMember(string username, TeamMember member, bool save = true)
+        {
+            var user = _userService.GetUserByUsername(username);
+            member.AddDate = DateTime.Now;
+            member.UserId = user.UserId;
+            _context.TeamMembers.Add(member);
+
+            if (save)
+                _context.SaveChanges();
+
+            return member;
         }
 
         public void FireAMember(TeamMember teamMember, bool isFired = true, bool save = true)

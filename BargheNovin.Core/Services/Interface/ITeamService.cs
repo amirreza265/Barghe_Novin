@@ -19,5 +19,7 @@ namespace BargheNovin.Core.Services.Interface
         void FireAMember(TeamMember teamMember, bool isFired = true, bool save = true);
         void FireAMember(string username, bool isFired = true, bool save = true);
         void FireAMember(int memberId, bool isFired = true, bool save = true);
+
+        TeamMember CreateTeamMember(string username, TeamMember member, bool save = true);
     }
 }
